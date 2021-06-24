@@ -1,5 +1,5 @@
 # Instalando o virtualvenv no linux
-# chmod +x grafos.sh
+# no terminal: chmod +x grafos.sh
 
 GREEN="\033[1;32m";
 BLUE="\033[1;34m";
