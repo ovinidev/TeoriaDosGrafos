@@ -160,34 +160,52 @@ class MeuGrafo(GrafoListaAdjacencia):
 
         return vertices_adjacentes
         
-    def dfs_recursivo(self, V, dfs, verticesAdjacentes, verticesVisitados):
-        verticesVisitados = [V]
+    def dfsRecursive(self, V, dfs, percorrido, adjacentes):
+        '''
+        Função recursiva para passar em todos vertices adjacentes do vértice atual e verificar
+        se ele ja foi percorrido ou não, adicionando ou não uma nova aresta ao grafo dfs.
+        '''
+        percorrido.append(V)
 
         vAdjacentes = []
-        for a in verticesAdjacentes:
-            if a[0] == V:
-                vAdjacentes.append(a)
-            elif a[1] == V:
-                vAdjacentes.append(a)
+        for i in adjacentes:
+            if i[0] == V:
+                vAdjacentes.append(i)
+            elif i[-1] == V:
+                if len(i) > 5:
+                    vAdjacentes.append((i[-1] + '-' + i[1] + '-' + i[0]))
+                else:
+                    vAdjacentes.append((i[-1],'-',i[1], '-', i[0]))
 
-        for j in vAdjacentes:
-            if j not in verticesVisitados:
-                dfs.adicionaAresta(j)
-                self.dfs_recursivo(self, a[-1], dfs, verticesAdjacentes, verticesVisitados)
+        for a in vAdjacentes:
+            if len(a) > 5:
+                if a[-1] not in percorrido:
+                    dfs.adicionaAresta(str(a[2] + a[3]),a[0],a[-1])
+                    self.dfsRecursive( a[-1],dfs,percorrido,adjacentes) 
+            else:
+                if a[-1] not in percorrido:
+                    dfs.adicionaAresta(str(a[2]),a[0],a[-1])
+                    self.dfsRecursive( a[-1],dfs,percorrido,adjacentes) 
                 
 
     def dfs(self, V=''):
-        '''
-        :param V: O vértice será usado como raiz da árvore
-        :return: Retornar a árvore DFS, representada por meio de um outro grafo 
-        que contém apenas as arestas que fazem parte da árvore
-        '''
-        v_Adjacentes = self.verticesAdjacentes()
-        verticesVisitados = []
+        verticeExiste = False
+        for i in self.N:
+            if i == V:
+                verticeExiste = True
 
-        grafoDFS = MeuGrafo(self.N[::])    
+        if verticeExiste == False:
+                raise VerticeInvalidoException("Não existe um vértice" , V, " neste grafo.")
 
-        self.dfs_recursivo(V, grafoDFS, v_Adjacentes, verticesVisitados)
+
+        adjacentes = self.verticesAdjacentes()
+        percorrido = []
+
+        dfs = MeuGrafo(self.N[::])
+
+        self.dfsRecursive(V, dfs, percorrido, adjacentes)
+
+        return dfs
             
     
 

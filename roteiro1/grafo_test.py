@@ -106,6 +106,45 @@ class TestGrafo(unittest.TestCase):
         self.nlw_bfs_A.adicionaAresta('8', 'I', 'G')
         self.nlw_bfs_A.adicionaAresta('9', 'G', 'H')
 
+        self.nlw_bfs_F = MeuGrafo(['K', 'J', 'G', 'H', 'F', 'B', 'C', 'D', 'E', 'A', 'I'])
+
+        self.nlw_bfs_F.adicionaAresta('10', 'H', 'F')
+        self.nlw_bfs_F.adicionaAresta('11', 'F', 'B')
+        self.nlw_bfs_F.adicionaAresta('9', 'G', 'H')
+        self.nlw_bfs_F.adicionaAresta('1', 'A', 'B')
+        self.nlw_bfs_F.adicionaAresta('13', 'B', 'C')
+        self.nlw_bfs_F.adicionaAresta('16', 'B', 'D')
+        self.nlw_bfs_F.adicionaAresta('17', 'B', 'E')
+        self.nlw_bfs_F.adicionaAresta('4', 'K', 'G')
+        self.nlw_bfs_F.adicionaAresta('6', 'J', 'G')
+        self.nlw_bfs_F.adicionaAresta('8', 'I', 'G')
+
+        self.nlw_bfs_K = MeuGrafo(['K', 'J', 'G', 'H', 'F', 'B', 'C', 'D', 'E', 'A', 'I'])
+
+        self.nlw_bfs_K.adicionaAresta('4', 'K', 'G')
+        self.nlw_bfs_K.adicionaAresta('5', 'K', 'J')
+        self.nlw_bfs_K.adicionaAresta('2', 'A', 'G')
+        self.nlw_bfs_K.adicionaAresta('8', 'I', 'G')
+        self.nlw_bfs_K.adicionaAresta('9', 'G', 'H')
+        self.nlw_bfs_K.adicionaAresta('12', 'G', 'B')
+        self.nlw_bfs_K.adicionaAresta('10', 'H', 'F')
+        self.nlw_bfs_K.adicionaAresta('13', 'B', 'C')
+        self.nlw_bfs_K.adicionaAresta('16', 'B', 'D')
+        self.nlw_bfs_K.adicionaAresta('17', 'B', 'E')
+
+        self.nlw_bfs_C = MeuGrafo(['K', 'J', 'G', 'H', 'F', 'B', 'C', 'D', 'E', 'A', 'I'])
+
+        self.nlw_bfs_C.adicionaAresta('13', 'B', 'C')
+        self.nlw_bfs_C.adicionaAresta('14', 'C', 'D')
+        self.nlw_bfs_C.adicionaAresta('1', 'A', 'B')
+        self.nlw_bfs_C.adicionaAresta('11', 'F', 'B')
+        self.nlw_bfs_C.adicionaAresta('12', 'G', 'B')
+        self.nlw_bfs_C.adicionaAresta('17', 'B', 'E')
+        self.nlw_bfs_C.adicionaAresta('3', 'A', 'J')
+        self.nlw_bfs_C.adicionaAresta('10', 'H', 'F')
+        self.nlw_bfs_C.adicionaAresta('4', 'K', 'G')
+        self.nlw_bfs_C.adicionaAresta('8', 'I', 'G')
+
 
     def test_adiciona_aresta(self):
         self.assertTrue(self.g_p.adicionaAresta('a10', 'J', 'C'))
@@ -196,3 +235,6 @@ class TestGrafo(unittest.TestCase):
 
     def test_bfs(self):
         self.assertEqual(self.nlw.bfs("A"), self.nlw_bfs_A)
+        self.assertEqual(self.nlw.bfs("K"), self.nlw_bfs_K)
+        self.assertEqual(self.nlw.bfs("F"), self.nlw_bfs_F)
+        self.assertEqual(self.nlw.bfs("C"), self.nlw_bfs_C)

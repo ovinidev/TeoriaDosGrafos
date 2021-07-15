@@ -23,4 +23,5 @@ nlw.adicionaAresta('15', 'D', 'E')
 nlw.adicionaAresta('16', 'B', 'D')
 nlw.adicionaAresta('17', 'B', 'E')
 
-print("nlw", nlw.bfs("A"))
+print("nlw", nlw.verticesAdjacentes())
+print("nlw", nlw.dfs("K"))
