@@ -148,6 +148,11 @@ class MeuGrafo(GrafoListaAdjacencia):
         return True
 
     def verticesAdjacentes(self):
+        '''
+        Função para gerar uma lista dos vertices adjacentes
+        :return: Uma lista com os vértices adjacentes
+        '''
+        
         vertices_adjacentes = []
 
         for a in self.A:
@@ -160,82 +165,96 @@ class MeuGrafo(GrafoListaAdjacencia):
 
         return vertices_adjacentes
         
-    def dfsRecursive(self, V, dfs, percorrido, adjacentes):
+    def dfs_Recursivo(self, V, dfs, verticePercorrido, v_Adjacentes):
         '''
-        Função recursiva para passar em todos vertices adjacentes do vértice atual e verificar
-        se ele ja foi percorrido ou não, adicionando ou não uma nova aresta ao grafo dfs.
+        Função recursiva para percorrer o grafo
+        :param V: O vértice raíz, o grafo dfs, os vertices percorridos e adjacentes
         '''
-        percorrido.append(V)
 
-        vAdjacentes = []
-        for i in adjacentes:
-            if i[0] == V:
-                vAdjacentes.append(i)
-            elif i[-1] == V:
-                if len(i) > 5:
-                    vAdjacentes.append((i[-1] + '-' + i[1] + '-' + i[0]))
+        verticePercorrido.append(V)
+
+        verticesAdjacentes = []
+        for v in v_Adjacentes:
+            if v[0] == V:
+                verticesAdjacentes.append(v)
+            elif v[-1] == V:
+                if len(v) > 5:
+                    verticesAdjacentes.append((v[-1] + v[1] + v[0]))
                 else:
-                    vAdjacentes.append((i[-1],'-',i[1], '-', i[0]))
+                    verticesAdjacentes.append((v[-1], v[1], v[0]))
 
-        for a in vAdjacentes:
-            if len(a) > 5:
-                if a[-1] not in percorrido:
-                    dfs.adicionaAresta(str(a[2] + a[3]),a[0],a[-1])
-                    self.dfsRecursive( a[-1],dfs,percorrido,adjacentes) 
+        for i in verticesAdjacentes:
+            if len(i) > 5:
+                if i[-1] not in verticePercorrido:
+                    dfs.adicionaAresta(i[1],i[0],i[-1])
+                    self.dfs_Recursivo(i[-1],dfs,verticePercorrido,v_Adjacentes) 
             else:
-                if a[-1] not in percorrido:
-                    dfs.adicionaAresta(str(a[2]),a[0],a[-1])
-                    self.dfsRecursive( a[-1],dfs,percorrido,adjacentes) 
+                if i[-1] not in verticePercorrido:
+                    dfs.adicionaAresta(i[1], i[0],i[-1])
+                    self.dfs_Recursivo( i[-1],dfs,verticePercorrido,v_Adjacentes) 
                 
 
     def dfs(self, V=''):
-        verticeExiste = False
-        for i in self.N:
-            if i == V:
-                verticeExiste = True
-
-        if verticeExiste == False:
-                raise VerticeInvalidoException("Não existe um vértice" , V, " neste grafo.")
-
-
-        adjacentes = self.verticesAdjacentes()
-        percorrido = []
-
+        '''
+        Provê um novo grafo após realizar o dfs
+        :param V: O vértice raíz
+        :return: Uma lista com o novo grafo pós dfs
+        :raises: VerticeInvalidoException se o vértice não existe no grafo
+        '''
         dfs = MeuGrafo(self.N[::])
 
-        self.dfsRecursive(V, dfs, percorrido, adjacentes)
+        temVertice = False
+        for v in self.N:
+            if v == V:
+                temVertice = True
 
-        return dfs
+        VerticesAdjacentes = self.verticesAdjacentes()
+        VerticesPercorrido = []
+
+        self.dfs_Recursivo(V, dfs, VerticesPercorrido, VerticesAdjacentes)
+
+        if temVertice == False:
+            raise VerticeInvalidoException("O vértice", V, "não existe no grafo")
+        else:
+            return dfs
             
-    
-
-
-
-
-
-
     def bfs(self, V=''):
-
+        '''
+        Provê um novo grafo após realizar o bfs
+        :param V: O vértice raíz
+        :return: Uma lista com o novo grafo pós bfs
+        :raises: VerticeInvalidoException se o vértice não existe no grafo
+        '''
         bfs = MeuGrafo(self.N[::])
 
         verticesVisitados = [V]
         fila = [V]
-        vertices_adjacentes = []
-        
+
+        temVertice = False
+
+        for v in self.N:
+            if v == V:
+                temVertice = True
 
         while(len(fila) != 0):
             for a in self.A:
                 v1 = self.A[a].getV1()
                 v2 = self.A[a].getV2()
                 verticeAnalisado = fila[0]
+
                 if v1 == verticeAnalisado or v2 == verticeAnalisado:
                     verticeAdjacente = v2 if verticeAnalisado == v1 else v1
+                    
                     if verticeAdjacente not in verticesVisitados:
                         fila.append((verticeAdjacente))
                         verticesVisitados.append(verticeAdjacente)                        
                         bfs.adicionaAresta(a, verticeAnalisado, verticeAdjacente)
             fila.pop(0)
-        return(bfs)
+
+        if(temVertice == False):
+            raise VerticeInvalidoException("O vértice", V, "não existe no grafo")
+        else: 
+            return bfs
 
 
             

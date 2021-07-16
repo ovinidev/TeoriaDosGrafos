@@ -91,6 +91,60 @@ class TestGrafo(unittest.TestCase):
         self.nlw.adicionaAresta('16', 'B', 'D')
         self.nlw.adicionaAresta('17', 'B', 'E')
 
+        #Arvore DFS
+
+        self.nlw_dfs_A = MeuGrafo(['K', 'J', 'G', 'H', 'F', 'B', 'C', 'D', 'E', 'A', 'I'])
+
+        self.nlw_dfs_A.adicionaAresta('1', 'A', 'B')
+        self.nlw_dfs_A.adicionaAresta('11', 'B', 'F')
+        self.nlw_dfs_A.adicionaAresta('10', 'F', 'H')
+        self.nlw_dfs_A.adicionaAresta('9', 'H', 'G')
+        self.nlw_dfs_A.adicionaAresta('4', 'G', 'K')
+        self.nlw_dfs_A.adicionaAresta('5', 'K', 'J')
+        self.nlw_dfs_A.adicionaAresta('7', 'J', 'I')
+        self.nlw_dfs_A.adicionaAresta('13', 'B', 'C')
+        self.nlw_dfs_A.adicionaAresta('14', 'C', 'D')
+        self.nlw_dfs_A.adicionaAresta('15', 'D', 'E')
+
+        self.nlw_dfs_F = MeuGrafo(['K', 'J', 'G', 'H', 'F', 'B', 'C', 'D', 'E', 'A', 'I'])
+
+        self.nlw_dfs_F.adicionaAresta('10', 'F', 'H')
+        self.nlw_dfs_F.adicionaAresta('9', 'H', 'G')
+        self.nlw_dfs_F.adicionaAresta('2', 'G', 'A')
+        self.nlw_dfs_F.adicionaAresta('1', 'A', 'B')
+        self.nlw_dfs_F.adicionaAresta('13', 'B', 'C')
+        self.nlw_dfs_F.adicionaAresta('14', 'C', 'D')
+        self.nlw_dfs_F.adicionaAresta('15', 'D', 'E')
+        self.nlw_dfs_F.adicionaAresta('3', 'A', 'J')
+        self.nlw_dfs_F.adicionaAresta('5', 'J', 'K')
+        self.nlw_dfs_F.adicionaAresta('7', 'J', 'I')
+
+        self.nlw_dfs_K = MeuGrafo(['K', 'J', 'G', 'H', 'F', 'B', 'C', 'D', 'E', 'A', 'I'])
+
+        self.nlw_dfs_K.adicionaAresta('4', 'K', 'G')
+        self.nlw_dfs_K.adicionaAresta('2', 'G', 'A')
+        self.nlw_dfs_K.adicionaAresta('1', 'A', 'B')
+        self.nlw_dfs_K.adicionaAresta('11', 'B', 'F')
+        self.nlw_dfs_K.adicionaAresta('10', 'F', 'H')
+        self.nlw_dfs_K.adicionaAresta('13', 'B', 'C')
+        self.nlw_dfs_K.adicionaAresta('14', 'C', 'D')
+        self.nlw_dfs_K.adicionaAresta('15', 'D', 'E')
+        self.nlw_dfs_K.adicionaAresta('3', 'A', 'J')
+        self.nlw_dfs_K.adicionaAresta('7', 'J', 'I')
+       
+        self.nlw_dfs_C = MeuGrafo(['K', 'J', 'G', 'H', 'F', 'B', 'C', 'D', 'E', 'A', 'I'])
+
+        self.nlw_dfs_C.adicionaAresta('13', 'C', 'B')
+        self.nlw_dfs_C.adicionaAresta('1', 'B', 'A')
+        self.nlw_dfs_C.adicionaAresta('2', 'A', 'G')
+        self.nlw_dfs_C.adicionaAresta('4', 'G', 'K')
+        self.nlw_dfs_C.adicionaAresta('5', 'K', 'J')
+        self.nlw_dfs_C.adicionaAresta('7', 'J', 'I')
+        self.nlw_dfs_C.adicionaAresta('9', 'G', 'H')
+        self.nlw_dfs_C.adicionaAresta('10', 'H', 'F')
+        self.nlw_dfs_C.adicionaAresta('16', 'B', 'D')
+        self.nlw_dfs_C.adicionaAresta('15', 'D', 'E')
+
         #Arvore BFS
 
         self.nlw_bfs_A = MeuGrafo(['K', 'J', 'G', 'H', 'F', 'B', 'C', 'D', 'E', 'A', 'I'])
@@ -232,6 +286,13 @@ class TestGrafo(unittest.TestCase):
         self.assertFalse((self.g_l3.eh_completo()))
         self.assertFalse((self.g_l4.eh_completo()))
         self.assertFalse((self.g_l5.eh_completo()))
+
+    def test_dfs(self):
+        self.assertEqual(self.nlw.dfs("A"), self.nlw_dfs_A)
+        self.assertEqual(self.nlw.dfs("F"), self.nlw_dfs_F)
+        self.assertEqual(self.nlw.dfs("K"), self.nlw_dfs_K)
+        self.assertEqual(self.nlw.dfs("C"), self.nlw_dfs_C)
+
 
     def test_bfs(self):
         self.assertEqual(self.nlw.bfs("A"), self.nlw_bfs_A)
