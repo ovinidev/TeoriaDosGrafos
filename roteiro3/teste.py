@@ -23,4 +23,4 @@ nlw.adicionaAresta('15', 'D', 'E')
 nlw.adicionaAresta('16', 'B', 'D')
 nlw.adicionaAresta('17', 'B', 'E')
 
-print("nlw", nlw.dfs("C"))
+print("nlw", nlw.bfs("F"))
