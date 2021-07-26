@@ -1,5 +1,6 @@
 from bibgrafo.grafo_lista_adjacencia import GrafoListaAdjacencia
 from bibgrafo.grafo_exceptions import *
+import random
 
 class MeuGrafo(GrafoListaAdjacencia):
 
@@ -249,6 +250,7 @@ class MeuGrafo(GrafoListaAdjacencia):
                         fila.append((verticeAdjacente))
                         verticesVisitados.append(verticeAdjacente)                        
                         bfs.adicionaAresta(a, verticeAnalisado, verticeAdjacente)
+                
             fila.pop(0)
 
         if(temVertice == False):
@@ -256,7 +258,35 @@ class MeuGrafo(GrafoListaAdjacencia):
         else: 
             return bfs
 
+    def ha_ciclo(self):
+        '''
+        Verifica se o grafo há ciclo
+        :return: Um valor booleano que indica se existe ou não um ciclo
+        '''
 
+        grafo_dfs = self.dfs(self.N[0])
+
+        print(grafo_dfs)
+
+        if self.ha_laco() or self.ha_paralelas():
+            print("sim")
+            return vertices_adjacentes
+        else:
+            print("nao")
+            return False
+
+    def conexo(self):
+        '''
+        Verifica se o grafo é conexo
+        :return: Um valor booleano que indica se o grafo é ou não conexo
+        '''
+        
+        grafo_bfs = self.bfs(self.N[0])
+
+        if len(self.N) == len(grafo_bfs.N):
+            return True
+        else:
+            return False
             
 
         

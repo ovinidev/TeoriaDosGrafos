@@ -2,25 +2,16 @@ from bibgrafo.grafo_lista_adjacencia import GrafoListaAdjacencia
 from meu_grafo import *
 
 
-nlw = MeuGrafo(['K', 'J', 'G', 'H', 'F', 'B', 'C', 'D', 'E', 'A', 'I'])
+g_p = MeuGrafo(['J', 'C', 'E', 'P', 'M', 'T', 'Z'])
+g_p.adicionaAresta('a1', 'J', 'C')
+g_p.adicionaAresta('a2', 'C', 'E')
+g_p.adicionaAresta('a3', 'C', 'E')
+g_p.adicionaAresta('a4', 'P', 'C')
+g_p.adicionaAresta('a5', 'P', 'C')
+g_p.adicionaAresta('a6', 'T', 'C')
+g_p.adicionaAresta('a7', 'M', 'C')
+g_p.adicionaAresta('a8', 'M', 'T')
+g_p.adicionaAresta('a9', 'T', 'Z')
 
+print(g_p.bfs("P"))
 
-nlw.adicionaAresta('1', 'A', 'B')
-nlw.adicionaAresta('2', 'A', 'G')
-nlw.adicionaAresta('3', 'A', 'J')
-nlw.adicionaAresta('4', 'K', 'G')
-nlw.adicionaAresta('5', 'K', 'J')
-nlw.adicionaAresta('6', 'J', 'G')
-nlw.adicionaAresta('7', 'J', 'I')
-nlw.adicionaAresta('8', 'I', 'G')
-nlw.adicionaAresta('9', 'G', 'H')
-nlw.adicionaAresta('10', 'H', 'F')
-nlw.adicionaAresta('11', 'F', 'B')
-nlw.adicionaAresta('12', 'G', 'B')
-nlw.adicionaAresta('13', 'B', 'C')
-nlw.adicionaAresta('14', 'C', 'D')
-nlw.adicionaAresta('15', 'D', 'E')
-nlw.adicionaAresta('16', 'B', 'D')
-nlw.adicionaAresta('17', 'B', 'E')
-
-print("nlw", nlw.bfs("F"))
