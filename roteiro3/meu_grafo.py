@@ -165,6 +165,20 @@ class MeuGrafo(GrafoListaAdjacencia):
                 vertices_adjacentes.append((verticeAtual1, a, verticeAtual2))
 
         return vertices_adjacentes
+
+    def verticesAdjacentes_aux(self):
+
+        vertices_adjacentes = []
+
+        for a in self.A:
+            arestaAtual = self.A[a]
+            verticeAtual1 = arestaAtual.getV1()
+            verticeAtual2 = arestaAtual.getV2()
+
+            vertices_adjacentes.append(verticeAtual1)
+            vertices_adjacentes.append(a)
+
+        return vertices_adjacentes
         
     def dfs_Recursivo(self, V, dfs, verticePercorrido, v_Adjacentes):
         '''
@@ -187,7 +201,7 @@ class MeuGrafo(GrafoListaAdjacencia):
         for i in verticesAdjacentes:
             if len(i) > 5:
                 if i[-1] not in verticePercorrido:
-                    dfs.adicionaAresta(i[1],i[0],i[-1])
+                    dfs.adicionaAresta((i[1],i[0],i[-1]))
                     self.dfs_Recursivo(i[-1],dfs,verticePercorrido,v_Adjacentes) 
             else:
                 if i[-1] not in verticePercorrido:
@@ -258,44 +272,118 @@ class MeuGrafo(GrafoListaAdjacencia):
         else: 
             return bfs
 
-    def ha_ciclo(self):
-        '''
-        Verifica se o grafo há ciclo
-        :return: Um valor booleano que indica se existe ou não um ciclo
-        '''
-
-        grafo_dfs = self.dfs(self.N[0])
-
-        print(grafo_dfs)
-
-        if self.ha_laco() or self.ha_paralelas():
-            print("sim")
-            return vertices_adjacentes
-        else:
-            print("nao")
-            return False
 
     def conexo(self):
         '''
         Verifica se o grafo é conexo
         :return: Um valor booleano que indica se o grafo é ou não conexo
         '''
-        
-        grafo_bfs = self.bfs(self.N[0])
+        grafo_bfs = self.bfs_aux(self.N[0])
+        tamanhoGrafoBfs = len(grafo_bfs)
+        tamanhoGrafoAnalisado = len(self.N)
 
-        if len(self.N) == len(grafo_bfs.N):
+        if (tamanhoGrafoBfs != tamanhoGrafoAnalisado):
+            return False
+        else:
             return True
+
+    def bfs_aux(self, V=''):
+        bfs = MeuGrafo(self.N[::])
+
+        verticesVisitados = [V]
+        fila = [V]
+        listaBfs = [V]
+
+        while(len(fila) != 0):
+            for a in self.A:
+                v1 = self.A[a].getV1()
+                v2 = self.A[a].getV2()
+                verticeAnalisado = fila[0]
+
+                if v1 == verticeAnalisado or v2 == verticeAnalisado:
+                    verticeAdjacente = v2 if verticeAnalisado == v1 else v1
+                    
+                    if verticeAdjacente not in verticesVisitados:
+                        fila.append((verticeAdjacente))
+                        verticesVisitados.append(verticeAdjacente)                        
+                        bfs.adicionaAresta(a, verticeAnalisado, verticeAdjacente)
+                        listaBfs.append(verticeAdjacente)
+                
+            fila.pop(0)
+        return listaBfs
+
+
+    def dfs_Recursivo_aux(self, V, dfs, verticePercorrido, v_Adjacentes, lista_dfs):
+        '''
+        Função recursiva para percorrer o grafo
+        :param V: O vértice raíz, o grafo dfs, os vertices percorridos e adjacentes
+        '''
+        
+        verticePercorrido.append(V)
+
+        verticesAdjacentes = []
+        for v in v_Adjacentes:
+            if v[0] == V:
+                verticesAdjacentes.append(v)
+            elif v[-1] == V:
+                if len(v) > 5:
+                    verticesAdjacentes.append((v[-1] + v[1] + v[0]))
+                else:
+                    verticesAdjacentes.append((v[-1], v[1], v[0]))
+
+        for i in verticesAdjacentes:
+            if len(i) > 5:
+                if i[-1] not in verticePercorrido:
+                    lista_dfs.append(i[1])
+                    lista_dfs.append(i[0])
+                    lista_dfs.append(i[-1])
+                    self.dfs_Recursivo(i[-1],dfs,verticePercorrido,v_Adjacentes) 
+            else:
+                if i[-1] not in verticePercorrido:
+                    lista_dfs.append(i[1])
+                    lista_dfs.append(i[0])
+                    lista_dfs.append(i[-1])
+                    self.dfs_Recursivo(i[-1],dfs,verticePercorrido,v_Adjacentes) 
+                
+
+    def dfs_aux(self, V=''):
+        '''
+        Provê um novo grafo após realizar o dfs
+        :param V: O vértice raíz
+        :return: Uma lista com o novo grafo pós dfs
+        :raises: VerticeInvalidoException se o vértice não existe no grafo
+        '''
+        dfs = MeuGrafo(self.N[::])
+        lista_dfs = []
+        temVertice = False
+        for v in self.N:
+            if v == V:
+                temVertice = True
+
+        VerticesAdjacentes = self.verticesAdjacentes()
+        VerticesPercorrido = []
+
+        self.dfs_Recursivo_aux(V, dfs, VerticesPercorrido, VerticesAdjacentes, lista_dfs)
+
+        if temVertice == False:
+            raise VerticeInvalidoException("O vértice", V, "não existe no grafo")
+        else:
+            return lista_dfs
+            
+    def ha_ciclo(self):
+        '''
+        Verifica se o grafo há ciclo
+        :return: Um valor booleano que indica se existe ou não um ciclo
+        '''
+
+        grafo_dfs = self.dfs_aux(self.N[0])
+
+        print(grafo_dfs)
+
+        grafo = self.verticesAdjacentes_aux()
+
+        if self.ha_laco() or self.ha_paralelas():
+            grafo.append(self.N[0])
+            return grafo
         else:
             return False
-            
-
-        
-        
-
-
-                
-                
-                
-
-
-

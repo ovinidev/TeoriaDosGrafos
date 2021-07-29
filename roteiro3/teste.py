@@ -2,16 +2,12 @@ from bibgrafo.grafo_lista_adjacencia import GrafoListaAdjacencia
 from meu_grafo import *
 
 
-g_p = MeuGrafo(['J', 'C', 'E', 'P', 'M', 'T', 'Z'])
-g_p.adicionaAresta('a1', 'J', 'C')
-g_p.adicionaAresta('a2', 'C', 'E')
-g_p.adicionaAresta('a3', 'C', 'E')
-g_p.adicionaAresta('a4', 'P', 'C')
-g_p.adicionaAresta('a5', 'P', 'C')
-g_p.adicionaAresta('a6', 'T', 'C')
-g_p.adicionaAresta('a7', 'M', 'C')
-g_p.adicionaAresta('a8', 'M', 'T')
-g_p.adicionaAresta('a9', 'T', 'Z')
+g_v1 = MeuGrafo(['V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8'])
+g_v1.adicionaAresta('a1', 'V1', 'V2')
+g_v1.adicionaAresta('a2', 'V2', 'V3')
+g_v1.adicionaAresta('a3', 'V3', 'V4')
+g_v1.adicionaAresta('a4', 'V4', 'V4')
+g_v1.adicionaAresta('a5', 'V5', 'V4')
+g_v1.adicionaAresta('a6', 'V5', 'V6')
 
-print(g_p.bfs("P"))
-
+print(g_v1.ha_ciclo())
