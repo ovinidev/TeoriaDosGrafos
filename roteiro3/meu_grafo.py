@@ -313,15 +313,15 @@ class MeuGrafo(GrafoListaAdjacencia):
         return listaBfs
 
 
-    def dfs_Recursivo_aux(self, V, dfs, verticePercorrido, v_Adjacentes, lista_dfs):
+    def dfs_Recursivo_aux(self, V, dfs, verticePercorrido, v_Adjacentes, lista_dfs, arestasPercorridas , ciclo):
         '''
         Função recursiva para percorrer o grafo
         :param V: O vértice raíz, o grafo dfs, os vertices percorridos e adjacentes
         '''
         
         verticePercorrido.append(V)
-
         verticesAdjacentes = []
+        
         for v in v_Adjacentes:
             if v[0] == V:
                 verticesAdjacentes.append(v)
@@ -332,20 +332,32 @@ class MeuGrafo(GrafoListaAdjacencia):
                     verticesAdjacentes.append((v[-1], v[1], v[0]))
 
         for i in verticesAdjacentes:
-            if len(i) > 5:
-                if i[-1] not in verticePercorrido:
-                    lista_dfs.append(i[1])
-                    lista_dfs.append(i[0])
-                    lista_dfs.append(i[-1])
-                    self.dfs_Recursivo(i[-1],dfs,verticePercorrido,v_Adjacentes) 
-            else:
-                if i[-1] not in verticePercorrido:
-                    lista_dfs.append(i[1])
-                    lista_dfs.append(i[0])
-                    lista_dfs.append(i[-1])
-                    self.dfs_Recursivo(i[-1],dfs,verticePercorrido,v_Adjacentes) 
-                
+            if i[-1] == verticePercorrido[0] and i[1] not in arestasPercorridas:
+                ciclo.append(i[-1])
+                break
+            
+            if (len(ciclo) > 0):
+                break
 
+            if i[-1] not in verticePercorrido:
+                arestasPercorridas.append(i[1])
+                lista_dfs.append(i[1])
+                lista_dfs.append(i[-1])
+                self.dfs_Recursivo_aux(i[-1], dfs, verticePercorrido, v_Adjacentes, lista_dfs, arestasPercorridas, ciclo)
+        if (len(ciclo) > 0):
+            for a in self.A:
+                if (self.A[a].getV1() == V and self.A[a].getV2() == ciclo[-1]):
+                    if (a not in ciclo):
+                        ciclo.append(a)
+                        break
+
+                if (self.A[a].getV2() == V and self.A[a].getV1() == ciclo[-1]):
+                    if (a not in ciclo):
+                        ciclo.append(a)
+                        break
+                    
+            ciclo.append(V)
+                
     def dfs_aux(self, V=''):
         '''
         Provê um novo grafo após realizar o dfs
@@ -354,7 +366,7 @@ class MeuGrafo(GrafoListaAdjacencia):
         :raises: VerticeInvalidoException se o vértice não existe no grafo
         '''
         dfs = MeuGrafo(self.N[::])
-        lista_dfs = []
+        lista_dfs = [V]
         temVertice = False
         for v in self.N:
             if v == V:
@@ -362,13 +374,15 @@ class MeuGrafo(GrafoListaAdjacencia):
 
         VerticesAdjacentes = self.verticesAdjacentes()
         VerticesPercorrido = []
+        arestasPercorridas = []
+        ciclo = []
 
-        self.dfs_Recursivo_aux(V, dfs, VerticesPercorrido, VerticesAdjacentes, lista_dfs)
+        self.dfs_Recursivo_aux(V, dfs, VerticesPercorrido, VerticesAdjacentes, lista_dfs, arestasPercorridas, ciclo)
 
         if temVertice == False:
             raise VerticeInvalidoException("O vértice", V, "não existe no grafo")
         else:
-            return lista_dfs
+            return ciclo
             
     def ha_ciclo(self):
         '''
@@ -376,14 +390,10 @@ class MeuGrafo(GrafoListaAdjacencia):
         :return: Um valor booleano que indica se existe ou não um ciclo
         '''
 
-        grafo_dfs = self.dfs_aux(self.N[0])
+        for i in (self.N):
+            grafo_dfs = self.dfs_aux(i)
 
-        print(grafo_dfs)
+            if len(grafo_dfs) > 0:
+                return grafo_dfs
 
-        grafo = self.verticesAdjacentes_aux()
-
-        if self.ha_laco() or self.ha_paralelas():
-            grafo.append(self.N[0])
-            return grafo
-        else:
-            return False
+        return False
