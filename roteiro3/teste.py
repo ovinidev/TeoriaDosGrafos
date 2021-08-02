@@ -1,9 +1,13 @@
 from bibgrafo.grafo_lista_adjacencia import GrafoListaAdjacencia
-from meu_grafo import *
+from meu_grafo_matriz_adjacencia_nao_dir import *
 
-g_l1 = MeuGrafo(['A', 'B', 'C', 'D'])
-g_l1.adicionaAresta('a1', 'A', 'A')
-g_l1.adicionaAresta('a2', 'A', 'B')
-g_l1.adicionaAresta('a3', 'A', 'A')
+g_p_dfs_J = MeuGrafo(['J', 'C', 'E', 'P', 'M', 'T', 'Z'])
+g_p_dfs_J.adicionaAresta('a1', 'J', 'C')
+g_p_dfs_J.adicionaAresta('a2', 'C', 'E')
+g_p_dfs_J.adicionaAresta('a4', 'P', 'C')
+g_p_dfs_J.adicionaAresta('a6', 'T', 'C')
+g_p_dfs_J.adicionaAresta('a8', 'M', 'T')
+g_p_dfs_J.adicionaAresta('a9', 'T', 'Z')
 
-print(g_l1.ha_ciclo())
+print(g_p_dfs_J)
+

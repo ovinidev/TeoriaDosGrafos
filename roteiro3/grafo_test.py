@@ -384,15 +384,18 @@ class TestGrafo(unittest.TestCase):
 
     def test_ha_ciclo(self):
         self.assertEqual(self.g_l1.ha_ciclo(), ['A', 'a1', 'A'])
-        #self.assertEqual(self.g_l2.ha_ciclo(), True)
-        #self.assertEqual(self.g_l3.ha_ciclo(), True)
-        #self.assertEqual(self.g_l4.ha_ciclo(), True)
-        #self.assertEqual(self.g_l5.ha_ciclo(), True)
-        #self.assertEqual(self.g_p.ha_ciclo(), True)
-        #self.assertEqual(self.g_c.ha_ciclo(), False)
-        #self.assertEqual(self.g_c2.ha_ciclo(), False)
-        #self.assertEqual(self.g_c3.ha_ciclo(), False)
-        #self.assertEqual(self.g_l1.ha_ciclo(), True)
+        self.assertEqual(self.g_l2.ha_ciclo(), ['A', 'a1', 'B', 'a3', 'A'])
+        self.assertEqual(self.g_l3.ha_ciclo(), ['C', 'a2', 'C'])
+        self.assertEqual(self.g_l4.ha_ciclo(), ['D', 'a1', 'D'])
+        self.assertEqual(self.g_l5.ha_ciclo(), ['C', 'a2', 'C'])
+        self.assertEqual(self.g_p.ha_ciclo(), ['C', 'a2', 'E', 'a3', 'C'])
+        self.assertEqual(self.g_c.ha_ciclo(), ['J', 'a2', 'E', 'a4', 'C', 'a1', 'J'])
+        self.assertEqual(self.g_c2.ha_ciclo(), False)
+        self.assertEqual(self.g_c3.ha_ciclo(), False)
+        self.assertEqual(self.g_p_dfs_J.ha_ciclo(), False)
+        self.assertEqual(self.g_p_dfs_C.ha_ciclo(), False)
+        self.assertEqual(self.g_p_dfs_Z.ha_ciclo(), False)
+        self.assertEqual(self.g_p_dfs_T.ha_ciclo(), False)
    
     def test_conexo(self):
         self.assertTrue(self.g_p.conexo())
