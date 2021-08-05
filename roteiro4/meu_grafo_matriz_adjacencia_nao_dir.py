@@ -69,7 +69,17 @@ class MeuGrafo(GrafoMatrizAdjacenciaNaoDirecionado):
       :return: Uma lista os rótulos das arestas que incidem sobre o vértice
       :raises: VerticeInvalidoException se o vértice não existe no grafo
       '''
-      pass
+      if V not in self.N:
+        raise VerticeInvalidoException("O vértice não existe no grafo")
+      
+      for i in range(len(self.M)):
+        for j in range(len(self.M)):
+          x = self.M[i][j]
+          aresta = x
+          if(len(aresta) >= 1):
+            print(aresta)
+          if(self.M[i][j] == V):
+            print("ok")
 
     def eh_completo(self):
       '''
@@ -77,10 +87,10 @@ class MeuGrafo(GrafoMatrizAdjacenciaNaoDirecionado):
       :return: Um valor booleano que indica se o grafo é completo
       '''
       if self.ha_laco():
-            return False
+        return False
 
       if self.ha_paralelas():
-            return False
+        return False
 
       quantidade_de_vertices = len(self.N)
 

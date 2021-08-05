@@ -36,6 +36,9 @@ class Aresta():
     def setRotulo(self, r=''):
         self.rotulo = r
 
+    def ehPonta(self, v):
+        return v == self.v1 or v == self.v2
+
     def __eq__(self, other):
         return ((self.v1 == other.getV1() and self.v2 == other.getV2()) or (self.v1 == other.getV2() and self.v2 == other.getV1())) and self.rotulo == other.getRotulo() and self.getPeso() == other.getPeso()
 

@@ -97,8 +97,7 @@ class MeuGrafo(GrafoListaAdjacencia):
                     return True
 
         return False
-                
-                               
+                                      
 
     def arestas_sobre_vertice(self, V):
         '''
