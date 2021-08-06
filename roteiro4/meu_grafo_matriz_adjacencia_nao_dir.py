@@ -70,10 +70,6 @@ class MeuGrafo(GrafoMatrizAdjacenciaNaoDirecionado):
         for j in range(len(self.M)):
           if len(self.M[i][j]) >= 2:
             return True
-          if len(self.M[i][i]) >= 2:
-            return True
-          if len(self.M[j][j]) >= 2:
-            return True
 
       return False
 
