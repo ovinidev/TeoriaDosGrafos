@@ -10,7 +10,22 @@ class MeuGrafo(GrafoMatrizAdjacenciaNaoDirecionado):
       Onde X, Z e W são vértices no grafo que não tem uma aresta entre eles.
       :return: Uma lista com os pares de vértices não adjacentes
       '''
-      pass
+      nao_adjacentes = []
+
+      for i in range(len(self.M)):
+        for j in range(len(self.M)):
+          aresta = self.M[i][j]
+
+          if (i != j):
+            verticeLinha = self.N[i]
+            verticeColuna = self.N[j]
+
+            if (len(aresta) == 0 and aresta != "-"):
+              vertice_Linha = f'{verticeLinha}-{verticeColuna}'
+              vertice_Coluna = f'{verticeColuna}-{verticeLinha}'
+              nao_adjacentes.append(vertice_Linha)
+
+      return nao_adjacentes
 
     def ha_laco(self):
       '''
@@ -71,15 +86,19 @@ class MeuGrafo(GrafoMatrizAdjacenciaNaoDirecionado):
       '''
       if V not in self.N:
         raise VerticeInvalidoException("O vértice não existe no grafo")
-      
+
+      indice_vertice = self.N.index(V)
+      rotulos = []
+
       for i in range(len(self.M)):
         for j in range(len(self.M)):
-          x = self.M[i][j]
-          aresta = x
-          if(len(aresta) >= 1):
-            print(aresta)
-          if(self.M[i][j] == V):
-            print("ok")
+          aresta = self.M[i][j]
+
+          if (i == indice_vertice or j == indice_vertice):
+            if (len(aresta) >= 1 and aresta != "-"):
+              rotuloAresta = list(aresta.keys())
+              rotulos += rotuloAresta
+      return rotulos
 
     def eh_completo(self):
       '''
