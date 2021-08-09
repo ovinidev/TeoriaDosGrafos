@@ -1,6 +1,6 @@
 from bibgrafo.grafo_lista_adjacencia import GrafoListaAdjacencia
 from bibgrafo.grafo_exceptions import *
-import random
+from copy import deepcopy
 
 class MeuGrafo(GrafoListaAdjacencia):
 
@@ -396,3 +396,45 @@ class MeuGrafo(GrafoListaAdjacencia):
                 return grafo_dfs
 
         return False
+
+    def ha_euleriano(self):
+        '''
+        Verifica se o grafo é euleriano
+        :return: Um valor booleano que indica se é possível realizar o algorítmo euleriano
+        '''
+
+        if (not self.conexo()):
+            return False
+        
+        qtd_impares = 0
+
+        for v in self.N:
+            grau = self.grau(v)
+            print(grau)
+            if (grau % 2 == 1):
+                qtd_impares += 1
+
+        if (qtd_impares == 0 or qtd_impares == 2):
+            return True
+        
+        return False
+
+    def eh_ponte(self, A=''):
+        '''
+        Verifica se no vértice passado há ponte
+        :return: Um valor booleano que indica se o vértice é ponte
+        '''
+
+        copia_grafo = deepcopy(self)
+
+        copia_grafo.removeAresta(A)
+
+        for v in copia_grafo.N:
+            if (copia_grafo.grau(v) == 0):
+                copia_grafo.removeVertice(v)
+
+        if (copia_grafo.conexo()): return False
+        
+        else: return True
+        
+        

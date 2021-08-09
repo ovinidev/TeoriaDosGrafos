@@ -1,6 +1,6 @@
 import unittest
 from bibgrafo.grafo_exceptions import *
-from meu_grafo_matriz_adjacencia_nao_dir import *
+from meu_grafo import *
 
 class TestGrafo(unittest.TestCase):
 
@@ -273,6 +273,54 @@ class TestGrafo(unittest.TestCase):
         self.nlw_bfs_C.adicionaAresta('4', 'K', 'G')
         self.nlw_bfs_C.adicionaAresta('8', 'I', 'G')
 
+        # Eureliano
+
+        self.euleriano = MeuGrafo(['A', 'B', 'C', 'D', 'E', 'F'])
+        
+        self.euleriano.adicionaAresta('a1', 'A', 'B')
+        self.euleriano.adicionaAresta('a2', 'B', 'D')
+        self.euleriano.adicionaAresta('a3', 'A', 'C')
+        self.euleriano.adicionaAresta('a4', 'C', 'D')
+        self.euleriano.adicionaAresta('a5', 'D', 'E')
+        self.euleriano.adicionaAresta('a6', 'D', 'F')
+        self.euleriano.adicionaAresta('a7', 'E', 'F')
+
+        self.semi_euleriano = MeuGrafo(['A', 'B', 'C', 'D', 'E', 'F'])
+        
+        self.semi_euleriano.adicionaAresta('a1', 'A', 'B')
+        self.semi_euleriano.adicionaAresta('a2', 'A', 'C')
+        self.semi_euleriano.adicionaAresta('a3', 'A', 'E')
+        self.semi_euleriano.adicionaAresta('a4', 'B', 'E')
+        self.semi_euleriano.adicionaAresta('a5', 'C', 'E')
+        self.semi_euleriano.adicionaAresta('a6', 'D', 'E')
+        self.semi_euleriano.adicionaAresta('a7', 'B', 'D')
+        self.semi_euleriano.adicionaAresta('a8', 'C', 'D')
+        self.semi_euleriano.adicionaAresta('a9', 'C', 'F')
+        self.semi_euleriano.adicionaAresta('a10', 'D', 'F')
+
+        self.v_v = MeuGrafo(['V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8'])
+
+        self.v_v.adicionaAresta('a1', 'V1', 'V2')
+        self.v_v.adicionaAresta('a2', 'V1', 'V3')
+        self.v_v.adicionaAresta('a3', 'V3', 'V2')
+        self.v_v.adicionaAresta('a4', 'V3', 'V4')
+        self.v_v.adicionaAresta('a5', 'V4', 'V5')
+        self.v_v.adicionaAresta('a6', 'V5', 'V8')
+        self.v_v.adicionaAresta('a7', 'V5', 'V7')
+        self.v_v.adicionaAresta('a8', 'V6', 'V7')
+
+        # Não Eureliano
+
+        self.nao_euleriano = MeuGrafo(['A', 'B', 'C', 'D', 'E'])
+
+        self.nao_euleriano.adicionaAresta('a1', 'A', 'B')
+        self.nao_euleriano.adicionaAresta('a2', 'A', 'C')
+        self.nao_euleriano.adicionaAresta('a3', 'A', 'E')
+        self.nao_euleriano.adicionaAresta('a4', 'B', 'E')
+        self.nao_euleriano.adicionaAresta('a5', 'C', 'E')
+        self.nao_euleriano.adicionaAresta('a6', 'D', 'E')
+        self.nao_euleriano.adicionaAresta('a7', 'B', 'D')
+        self.nao_euleriano.adicionaAresta('a8', 'C', 'D')
 
     def test_adiciona_aresta(self):
         self.assertTrue(self.g_p.adicionaAresta('a10', 'J', 'C'))
@@ -360,3 +408,57 @@ class TestGrafo(unittest.TestCase):
         self.assertFalse((self.g_l3.eh_completo()))
         self.assertFalse((self.g_l4.eh_completo()))
         self.assertFalse((self.g_l5.eh_completo()))
+
+    def test_dfs(self):
+        self.assertEqual(self.nlw.dfs("A"), self.nlw_dfs_A)
+        self.assertEqual(self.nlw.dfs("F"), self.nlw_dfs_F)
+        self.assertEqual(self.nlw.dfs("K"), self.nlw_dfs_K)
+        self.assertEqual(self.nlw.dfs("C"), self.nlw_dfs_C)
+        self.assertEqual(self.g_p.dfs("J"), self.g_p_dfs_J)
+        self.assertEqual(self.g_p.dfs("C"), self.g_p_dfs_C)
+        self.assertEqual(self.g_p.dfs("Z"), self.g_p_dfs_Z)
+        self.assertEqual(self.g_p.dfs("T"), self.g_p_dfs_T)
+
+
+    def test_bfs(self):
+        self.assertEqual(self.nlw.bfs("A"), self.nlw_bfs_A)
+        self.assertEqual(self.nlw.bfs("K"), self.nlw_bfs_K)
+        self.assertEqual(self.nlw.bfs("F"), self.nlw_bfs_F)
+        self.assertEqual(self.nlw.bfs("C"), self.nlw_bfs_C)
+        self.assertEqual(self.g_p.bfs("J"), self.g_p_bfs_J)
+        self.assertEqual(self.g_p.bfs("T"), self.g_p_bfs_T)
+        self.assertEqual(self.g_p.bfs("Z"), self.g_p_bfs_Z)
+        self.assertEqual(self.g_p.bfs("P"), self.g_p_bfs_P)  
+
+    def test_ha_ciclo(self):
+        self.assertEqual(self.g_l1.ha_ciclo(), ['A', 'a1', 'A'])
+        self.assertEqual(self.g_l2.ha_ciclo(), ['A', 'a1', 'B', 'a3', 'A'])
+        self.assertEqual(self.g_l3.ha_ciclo(), ['C', 'a2', 'C'])
+        self.assertEqual(self.g_l4.ha_ciclo(), ['D', 'a1', 'D'])
+        self.assertEqual(self.g_l5.ha_ciclo(), ['C', 'a2', 'C'])
+        self.assertEqual(self.g_p.ha_ciclo(), ['C', 'a2', 'E', 'a3', 'C'])
+        self.assertEqual(self.g_c.ha_ciclo(), ['J', 'a2', 'E', 'a4', 'C', 'a1', 'J'])
+        self.assertEqual(self.g_c2.ha_ciclo(), False)
+        self.assertEqual(self.g_c3.ha_ciclo(), False)
+        self.assertEqual(self.g_p_dfs_J.ha_ciclo(), False)
+        self.assertEqual(self.g_p_dfs_C.ha_ciclo(), False)
+        self.assertEqual(self.g_p_dfs_Z.ha_ciclo(), False)
+        self.assertEqual(self.g_p_dfs_T.ha_ciclo(), False)
+   
+    def test_conexo(self):
+        self.assertTrue(self.g_p.conexo())
+        self.assertTrue(self.g_c.conexo())
+        self.assertTrue(self.g_c2.conexo())
+        self.assertTrue(self.g_c3.conexo())
+        self.assertTrue(self.nlw.conexo())
+        self.assertTrue(self.nlw_dfs_A.conexo())
+        self.assertTrue(self.nlw_dfs_K.conexo())
+        self.assertTrue(self.nlw_dfs_F.conexo())
+        self.assertTrue(self.nlw_dfs_C.conexo())
+        self.assertTrue(self.nlw_bfs_A.conexo())
+        self.assertTrue(self.nlw_bfs_K.conexo())
+        self.assertTrue(self.nlw_bfs_F.conexo())
+        self.assertTrue(self.nlw_bfs_C.conexo())
+        self.assertTrue(self.nlw_bfs_C.conexo())
+        self.assertFalse(self.g_v1.conexo())
+        self.assertFalse(self.g_d.conexo())
