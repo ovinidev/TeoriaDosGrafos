@@ -410,10 +410,9 @@ class MeuGrafo(GrafoListaAdjacencia):
 
         for v in self.N:
             grau = self.grau(v)
-            print(grau)
             if (grau % 2 == 1):
                 qtd_impares += 1
-
+    
         if (qtd_impares == 0 or qtd_impares == 2):
             return True
         
@@ -434,7 +433,69 @@ class MeuGrafo(GrafoListaAdjacencia):
                 copia_grafo.removeVertice(v)
 
         if (copia_grafo.conexo()): return False
-        
+
         else: return True
         
+    def printEulerPathCircuit(self):
         
+        if (not self.ha_euleriano()): return False
+
+        copia_grafo = deepcopy(self)
+
+        qtd_impares = 0
+        vertice_grau_impar = 0
+
+        for v in self.N:
+            grau = self.grau(v)
+            if (grau % 2 == 1):
+                qtd_impares += 1
+                vertice_grau_impar = v
+
+        if (qtd_impares == 0):
+            self.printEuler("A")
+        elif (qtd_impares == 2):
+            self.printEuler(vertice_grau_impar)
+        else:
+            print("Nao existe euler")
+
+
+    def printEuler(self, V=''):
+
+        copia_grafo = deepcopy(self)
+
+        vertice_adjacente = copia_grafo.verticesAdjacentes_(V)
+
+        aresta_adjacente = copia_grafo.arestas_sobre_vertice(V)
+
+
+        if (not vertice_adjacente):
+            return
+
+        if (len(vertice_adjacente) == 1):
+            vertice = vertice_adjacente[0]
+            vertice_adjacente.remove(vertice)
+            return
+
+        for a in aresta_adjacente:
+            if (not self.eh_ponte(a)):
+                vertice = vertice_adjacente[0]
+                copia_grafo.removeAresta(a)
+                self.printEuler(vertice)
+                return
+
+
+    def verticesAdjacentes_(self, V=''):
+
+        vertices_adjacentes = []
+
+        for a in self.A:
+            arestaAtual = self.A[a]
+            verticeAtual1 = arestaAtual.getV1()
+            verticeAtual2 = arestaAtual.getV2()
+
+            if (verticeAtual1 == V or verticeAtual2 == V):
+                vertices_adjacentes.append(verticeAtual1)
+                vertices_adjacentes.append(verticeAtual2)
+                vertices_adjacentes.remove(V)
+
+        return vertices_adjacentes
