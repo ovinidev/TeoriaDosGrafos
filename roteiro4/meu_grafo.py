@@ -287,7 +287,7 @@ class MeuGrafo(GrafoListaAdjacencia):
             return True
 
     def bfs_aux(self, V=''):
-        bfs = MeuGrafo(self.N[::])
+        bfs = MeuGrafo([V])
 
         verticesVisitados = [V]
         fila = [V]
@@ -303,6 +303,7 @@ class MeuGrafo(GrafoListaAdjacencia):
                     verticeAdjacente = v2 if verticeAnalisado == v1 else v1
                     
                     if verticeAdjacente not in verticesVisitados:
+                        bfs.adicionaVertice(verticeAdjacente)
                         fila.append((verticeAdjacente))
                         verticesVisitados.append(verticeAdjacente)                        
                         bfs.adicionaAresta(a, verticeAnalisado, verticeAdjacente)
@@ -427,10 +428,7 @@ class MeuGrafo(GrafoListaAdjacencia):
         copia_grafo = deepcopy(self)
 
         copia_grafo.removeAresta(A)
-
-        for v in copia_grafo.N:
-            if (copia_grafo.grau(v) == 0):
-                copia_grafo.removeVertice(v)
+        
 
         if (copia_grafo.conexo()): return False
 
@@ -442,8 +440,10 @@ class MeuGrafo(GrafoListaAdjacencia):
 
         copia_grafo = deepcopy(self)
 
+        caminho = []
+
         qtd_impares = 0
-        vertice_grau_impar = 0
+        vertice_grau_impar = ''
 
         for v in self.N:
             grau = self.grau(v)
@@ -452,35 +452,46 @@ class MeuGrafo(GrafoListaAdjacencia):
                 vertice_grau_impar = v
 
         if (qtd_impares == 0):
-            self.printEuler("A")
+            copia_grafo.printEuler(self.N[0], caminho)
         elif (qtd_impares == 2):
-            self.printEuler(vertice_grau_impar)
-        else:
-            print("Nao existe euler")
+            copia_grafo.printEuler(vertice_grau_impar, caminho)
+
+        return caminho
 
 
-    def printEuler(self, V=''):
 
-        copia_grafo = deepcopy(self)
+    def printEuler(self, V, caminho):
 
-        vertice_adjacente = copia_grafo.verticesAdjacentes_(V)
+        vertice_adjacente = self.verticesAdjacentes_(V)
 
-        aresta_adjacente = copia_grafo.arestas_sobre_vertice(V)
+        aresta_adjacente = self.arestas_sobre_vertice(V)
 
+        caminho.append(V)
 
-        if (not vertice_adjacente):
+        if (len(vertice_adjacente) == 0):
             return
 
+            
         if (len(vertice_adjacente) == 1):
-            vertice = vertice_adjacente[0]
-            vertice_adjacente.remove(vertice)
+            caminho.append(aresta_adjacente[0])
+            self.removeAresta(aresta_adjacente[0])
+            self.removeVertice(V)
+            self.printEuler(vertice_adjacente[0], caminho)
+
             return
 
         for a in aresta_adjacente:
+            
             if (not self.eh_ponte(a)):
-                vertice = vertice_adjacente[0]
-                copia_grafo.removeAresta(a)
-                self.printEuler(vertice)
+                v1 = self.A[a].getV1()
+                v2 = self.A[a].getV2()
+                caminho.append(a)
+                self.removeAresta(a)
+                if (V != v1):
+                    self.printEuler(v1, caminho)
+                    
+                else:
+                    self.printEuler(v2, caminho)
                 return
 
 
@@ -497,5 +508,6 @@ class MeuGrafo(GrafoListaAdjacencia):
                 vertices_adjacentes.append(verticeAtual1)
                 vertices_adjacentes.append(verticeAtual2)
                 vertices_adjacentes.remove(V)
+        
 
         return vertices_adjacentes

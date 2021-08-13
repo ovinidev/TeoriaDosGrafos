@@ -462,3 +462,9 @@ class TestGrafo(unittest.TestCase):
         self.assertTrue(self.nlw_bfs_C.conexo())
         self.assertFalse(self.g_v1.conexo())
         self.assertFalse(self.g_d.conexo())
+
+    def test_euleriano(self):
+        self.assertEqual(self.euleriano.printEulerPathCircuit(), ['A', 'a1', 'B', 'a2', 'D', 'a5', 'E', 'a7', 'F', 'a6', 'D', 'a4', 'C', 'a3', 'A'])
+        self.assertEqual(self.semi_euleriano.printEulerPathCircuit(), ['B', 'a1', 'A', 'a2', 'C', 'a5', 'E', 'a4', 'B', 'a7', 'D', 'a8', 'C', 'a9', 'F', 'a10', 'D', 'a6', 'E', 'a3', 'A'])
+        self.assertFalse(self.v_v.printEulerPathCircuit(),)
+        self.assertFalse(self.nao_euleriano.printEulerPathCircuit())
