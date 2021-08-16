@@ -1,6 +1,6 @@
 import unittest
 from bibgrafo.grafo_exceptions import *
-from meu_grafo import *
+from meu_grafo_matriz_adjacencia_dir import *
 
 class TestGrafo(unittest.TestCase):
 
@@ -273,6 +273,54 @@ class TestGrafo(unittest.TestCase):
         self.nlw_bfs_C.adicionaAresta('4', 'K', 'G')
         self.nlw_bfs_C.adicionaAresta('8', 'I', 'G')
 
+        # Eureliano
+
+        self.euleriano = MeuGrafo(['A', 'B', 'C', 'D', 'E', 'F'])
+        
+        self.euleriano.adicionaAresta('a1', 'A', 'B')
+        self.euleriano.adicionaAresta('a2', 'B', 'D')
+        self.euleriano.adicionaAresta('a3', 'A', 'C')
+        self.euleriano.adicionaAresta('a4', 'C', 'D')
+        self.euleriano.adicionaAresta('a5', 'D', 'E')
+        self.euleriano.adicionaAresta('a6', 'D', 'F')
+        self.euleriano.adicionaAresta('a7', 'E', 'F')
+
+        self.semi_euleriano = MeuGrafo(['A', 'B', 'C', 'D', 'E', 'F'])
+        
+        self.semi_euleriano.adicionaAresta('a1', 'A', 'B')
+        self.semi_euleriano.adicionaAresta('a2', 'A', 'C')
+        self.semi_euleriano.adicionaAresta('a3', 'A', 'E')
+        self.semi_euleriano.adicionaAresta('a4', 'B', 'E')
+        self.semi_euleriano.adicionaAresta('a5', 'C', 'E')
+        self.semi_euleriano.adicionaAresta('a6', 'D', 'E')
+        self.semi_euleriano.adicionaAresta('a7', 'B', 'D')
+        self.semi_euleriano.adicionaAresta('a8', 'C', 'D')
+        self.semi_euleriano.adicionaAresta('a9', 'C', 'F')
+        self.semi_euleriano.adicionaAresta('a10', 'D', 'F')
+
+        self.v_v = MeuGrafo(['V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8'])
+
+        self.v_v.adicionaAresta('a1', 'V1', 'V2')
+        self.v_v.adicionaAresta('a2', 'V1', 'V3')
+        self.v_v.adicionaAresta('a3', 'V3', 'V2')
+        self.v_v.adicionaAresta('a4', 'V3', 'V4')
+        self.v_v.adicionaAresta('a5', 'V4', 'V5')
+        self.v_v.adicionaAresta('a6', 'V5', 'V8')
+        self.v_v.adicionaAresta('a7', 'V5', 'V7')
+        self.v_v.adicionaAresta('a8', 'V6', 'V7')
+
+        # Não Eureliano
+
+        self.nao_euleriano = MeuGrafo(['A', 'B', 'C', 'D', 'E'])
+
+        self.nao_euleriano.adicionaAresta('a1', 'A', 'B')
+        self.nao_euleriano.adicionaAresta('a2', 'A', 'C')
+        self.nao_euleriano.adicionaAresta('a3', 'A', 'E')
+        self.nao_euleriano.adicionaAresta('a4', 'B', 'E')
+        self.nao_euleriano.adicionaAresta('a5', 'C', 'E')
+        self.nao_euleriano.adicionaAresta('a6', 'D', 'E')
+        self.nao_euleriano.adicionaAresta('a7', 'B', 'D')
+        self.nao_euleriano.adicionaAresta('a8', 'C', 'D')
 
     def test_adiciona_aresta(self):
         self.assertTrue(self.g_p.adicionaAresta('a10', 'J', 'C'))
@@ -414,3 +462,14 @@ class TestGrafo(unittest.TestCase):
         self.assertTrue(self.nlw_bfs_C.conexo())
         self.assertFalse(self.g_v1.conexo())
         self.assertFalse(self.g_d.conexo())
+
+    def test_euleriano(self):
+        self.assertEqual(self.euleriano.printEulerPathCircuit(), ['A', 'a1', 'B', 'a2', 'D', 'a5', 'E', 'a7', 'F', 'a6', 'D', 'a4', 'C', 'a3', 'A'])
+        self.assertEqual(self.semi_euleriano.printEulerPathCircuit(), ['B', 'a1', 'A', 'a2', 'C', 'a5', 'E', 'a4', 'B', 'a7', 'D', 'a8', 'C', 'a9', 'F', 'a10', 'D', 'a6', 'E', 'a3', 'A'])
+        self.assertFalse(self.v_v.printEulerPathCircuit(),)
+        self.assertFalse(self.g_p_dfs_C.printEulerPathCircuit(),)
+        self.assertFalse(self.nao_euleriano.printEulerPathCircuit())
+        self.assertEqual(self.nlw.printEulerPathCircuit(), ['A', '1', 'B', '11', 'F', '10', 'H', '9', 'G', '2', 'A', '3', 'J', '5', 'K', '4', 'G', '6', 'J', '7', 'I', '8', 'G', '12', 'B', '13', 'C', '14', 'D', '15', 'E', '17', 'B', '16', 'D'])
+        self.assertFalse(self.g_p.printEulerPathCircuit(),)
+        self.assertFalse(self.g_p_sem_paralelas.printEulerPathCircuit(),)
+        self.assertFalse(self.g_c.printEulerPathCircuit(),)
