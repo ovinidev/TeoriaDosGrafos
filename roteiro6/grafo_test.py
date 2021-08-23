@@ -83,6 +83,55 @@ class TestGrafo(unittest.TestCase):
         self.g_p_bfs_P.adicionaAresta('a7', 'M', 'C')
         self.g_p_bfs_P.adicionaAresta('a9', 'T', 'Z')
 
+        # Grafos direcionados
+
+        self.graf_1 = MeuGrafo(['A', 'B', 'C', 'D'])
+
+        self.graf_1.adicionaAresta('a1', 'A', 'B')
+        self.graf_1.adicionaAresta('a2', 'B', 'C')
+        self.graf_1.adicionaAresta('a3', 'C', 'D')
+        self.graf_1.adicionaAresta('a4', 'D', 'B')
+
+        self.graf_2 = MeuGrafo(['A', 'B', 'C', 'D', 'E', 'F'])
+
+        self.graf_2.adicionaAresta('a1', 'A', 'B')
+        self.graf_2.adicionaAresta('a2', 'B', 'C')
+        self.graf_2.adicionaAresta('a3', 'C', 'F')
+        self.graf_2.adicionaAresta('a4', 'E', 'D')
+        self.graf_2.adicionaAresta('a5', 'F', 'E')
+        self.graf_2.adicionaAresta('a6', 'F', 'A')
+        self.graf_2.adicionaAresta('a7', 'D', 'C')
+
+        self.graf_3 = MeuGrafo(['A', 'B', 'C', 'D', 'E'])
+
+        self.graf_3.adicionaAresta('a1', 'A', 'B')
+        self.graf_3.adicionaAresta('a2', 'B', 'C')
+        self.graf_3.adicionaAresta('a3', 'C', 'D')
+        self.graf_3.adicionaAresta('a4', 'D', 'E')
+        self.graf_3.adicionaAresta('a5', 'E', 'A')
+        self.graf_3.adicionaAresta('a6', 'D', 'A')
+
+        self.graf_4 = MeuGrafo(['A', 'B', 'C', 'D', 'E', 'F', 'G'])
+
+        self.graf_4.adicionaAresta('a1', 'A', 'B')
+        self.graf_4.adicionaAresta('a2', 'B', 'C')
+        self.graf_4.adicionaAresta('a3', 'C', 'D')
+        self.graf_4.adicionaAresta('a4', 'D', 'E')
+        self.graf_4.adicionaAresta('a5', 'E', 'A')
+        self.graf_4.adicionaAresta('a6', 'D', 'A')
+        self.graf_4.adicionaAresta('a7', 'F', 'C')
+        self.graf_4.adicionaAresta('a8', 'A', 'F')
+        self.graf_4.adicionaAresta('a9', 'B', 'G')
+        self.graf_4.adicionaAresta('a10', 'G', 'C')
+
+        self.grafo_5 = MeuGrafo(['A', 'B', 'C', 'D'])
+
+        self.grafo_5.adicionaAresta('a1', 'A', 'B')
+        self.grafo_5.adicionaAresta('a2', 'A', 'C')
+        self.grafo_5.adicionaAresta('a3', 'B', 'C')
+        self.grafo_5.adicionaAresta('a4', 'C', 'D')
+        self.grafo_5.adicionaAresta('a5', 'C', 'A')
+
 
         # Grafo da Paraíba sem arestas paralelas
         self.g_p_sem_paralelas = MeuGrafo(['J', 'C', 'E', 'P', 'M', 'T', 'Z'])
@@ -473,3 +522,6 @@ class TestGrafo(unittest.TestCase):
         self.assertFalse(self.g_p.printEulerPathCircuit(),)
         self.assertFalse(self.g_p_sem_paralelas.printEulerPathCircuit(),)
         self.assertFalse(self.g_c.printEulerPathCircuit(),)
+
+    def test_warshall(self):
+        self.assertTrue(self.grafo_5.warshall())
