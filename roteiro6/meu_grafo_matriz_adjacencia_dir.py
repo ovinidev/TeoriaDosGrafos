@@ -6,19 +6,27 @@ from copy import deepcopy
 class MeuGrafo(GrafoMatrizAdjacenciaDirecionado):
 
   def warshall(self):
-    E = deepcopy(self)
 
-    for i in range(len(E.M)):
-      for j in range(len(E.M)):
-        if len(E.M[j][i]) == 1:
-          for k in range(len(E.M)):
-            jk = len(self.M[j][k])
-            ik = len(self.M[i][k])
-            if jk > ik:
-              E.M[j][k] = str(jk)
-            elif jk == ik:
-              E.M[j][k] = str(jk)
+    matriz = []
+
+    for l in range(len(self.M)):
+      linha = []
+      for c in range(len(self.M)):
+        if (len(self.M[l][c]) > 0):
+          linha.append(1)
+        else:
+          linha.append(0)
+      matriz.append(linha)
+
+    for i in range(len(matriz)):
+      for j in range(len(matriz)):
+        if matriz[j][i] == 1:
+          for k in range(len(matriz)):
+            jk = matriz[j][k]
+            ik = matriz[i][k]
+            if jk >= ik:
+              matriz[j][k] = jk
             elif ik > jk:
-              E.M[j][k] = str(ik)
+              matriz[j][k] = ik
 
-    return E
+    return matriz

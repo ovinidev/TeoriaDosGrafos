@@ -124,13 +124,13 @@ class TestGrafo(unittest.TestCase):
         self.graf_4.adicionaAresta('a9', 'B', 'G')
         self.graf_4.adicionaAresta('a10', 'G', 'C')
 
-        self.grafo_5 = MeuGrafo(['A', 'B', 'C', 'D'])
+        self.graf_5 = MeuGrafo(['A', 'B', 'C', 'D'])
 
-        self.grafo_5.adicionaAresta('a1', 'A', 'B')
-        self.grafo_5.adicionaAresta('a2', 'A', 'C')
-        self.grafo_5.adicionaAresta('a3', 'B', 'C')
-        self.grafo_5.adicionaAresta('a4', 'C', 'D')
-        self.grafo_5.adicionaAresta('a5', 'C', 'A')
+        self.graf_5.adicionaAresta('a1', 'A', 'B')
+        self.graf_5.adicionaAresta('a2', 'A', 'C')
+        self.graf_5.adicionaAresta('a3', 'B', 'C')
+        self.graf_5.adicionaAresta('a4', 'C', 'D')
+        self.graf_5.adicionaAresta('a5', 'C', 'A')
 
 
         # Grafo da Paraíba sem arestas paralelas
@@ -371,157 +371,14 @@ class TestGrafo(unittest.TestCase):
         self.nao_euleriano.adicionaAresta('a7', 'B', 'D')
         self.nao_euleriano.adicionaAresta('a8', 'C', 'D')
 
-    def test_adiciona_aresta(self):
-        self.assertTrue(self.g_p.adicionaAresta('a10', 'J', 'C'))
-        with self.assertRaises(ArestaInvalidaException):
-            self.assertTrue(self.g_p.adicionaAresta('b1', '', 'C'))
-        with self.assertRaises(ArestaInvalidaException):
-            self.assertTrue(self.g_p.adicionaAresta('b1', 'A', 'C'))
-        with self.assertRaises(ArestaInvalidaException):
-            self.g_p.adicionaAresta('')
-        with self.assertRaises(ArestaInvalidaException):
-            self.g_p.adicionaAresta('aa-bb')
-        with self.assertRaises(ArestaInvalidaException):
-            self.g_p.adicionaAresta('x', 'J', 'V')
-        with self.assertRaises(ArestaInvalidaException):
-            self.g_p.adicionaAresta('a1', 'J', 'C')
-
-    def test_vertices_nao_adjacentes(self):
-        self.assertEqual(self.g_p.vertices_nao_adjacentes(), ['J-E', 'J-P', 'J-M', 'J-T', 'J-Z', 'C-Z', 'E-P', 'E-M', 'E-T', 'E-Z', 'P-M', 'P-T', 'P-Z', 'M-Z'])
-        self.assertEqual(self.g_c.vertices_nao_adjacentes(), [])
-        self.assertEqual(self.g_c3.vertices_nao_adjacentes(), [])
-
-    def test_ha_laco(self):
-        self.assertFalse(self.g_p.ha_laco())
-        self.assertFalse(self.g_p_sem_paralelas.ha_laco())
-        self.assertFalse(self.g_c2.ha_laco())
-        self.assertTrue(self.g_l1.ha_laco())
-        self.assertTrue(self.g_l2.ha_laco())
-        self.assertTrue(self.g_l3.ha_laco())
-        self.assertTrue(self.g_l4.ha_laco())
-        self.assertTrue(self.g_l5.ha_laco())
-
-    def test_grau(self):
-        # Paraíba
-        self.assertEqual(self.g_p.grau('J'), 1)
-        self.assertEqual(self.g_p.grau('C'), 7)
-        self.assertEqual(self.g_p.grau('E'), 2)
-        self.assertEqual(self.g_p.grau('P'), 2)
-        self.assertEqual(self.g_p.grau('M'), 2)
-        self.assertEqual(self.g_p.grau('T'), 3)
-        self.assertEqual(self.g_p.grau('Z'), 1)
-        with self.assertRaises(VerticeInvalidoException):
-            self.assertEqual(self.g_p.grau('G'), 5)
-
-        self.assertEqual(self.g_d.grau('A'), 1)
-        self.assertEqual(self.g_d.grau('C'), 0)
-        self.assertNotEqual(self.g_d.grau('D'), 2)
-
-        # Completos
-        self.assertEqual(self.g_c.grau('J'), 3)
-        self.assertEqual(self.g_c.grau('C'), 3)
-        self.assertEqual(self.g_c.grau('E'), 3)
-        self.assertEqual(self.g_c.grau('P'), 3)
-
-        # Com laço. Lembrando que cada laço conta 2 vezes por vértice para cálculo do grau
-        self.assertEqual(self.g_l1.grau('A'), 5)
-        self.assertEqual(self.g_l2.grau('B'), 4)
-        self.assertEqual(self.g_l4.grau('D'), 2)
-
-    def test_ha_paralelas(self):
-        self.assertTrue(self.g_p.ha_paralelas())
-        self.assertFalse(self.g_p_sem_paralelas.ha_paralelas())
-        self.assertFalse(self.g_c.ha_paralelas())
-        self.assertFalse(self.g_c2.ha_paralelas())
-        self.assertFalse(self.g_c3.ha_paralelas())
-        self.assertTrue(self.g_l1.ha_paralelas())
-
-    def test_arestas_sobre_vertice(self):
-        self.assertEqual(set(self.g_p.arestas_sobre_vertice('J')), set(['a1']))
-        self.assertEqual(set(self.g_p.arestas_sobre_vertice('C')), set(['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7']))
-        self.assertEqual(set(self.g_p.arestas_sobre_vertice('M')), set(['a7', 'a8']))
-        self.assertEqual(set(self.g_l2.arestas_sobre_vertice('B')), set(['a1', 'a2', 'a3']))
-        self.assertEqual(set(self.g_d.arestas_sobre_vertice('C')), set())
-        self.assertEqual(set(self.g_d.arestas_sobre_vertice('A')), set(['asd']))
-        with self.assertRaises(VerticeInvalidoException):
-            self.g_p.arestas_sobre_vertice('A')
-
-    def test_eh_completo(self):
-        self.assertFalse(self.g_p.eh_completo())
-        self.assertFalse((self.g_p_sem_paralelas.eh_completo()))
-        self.assertTrue((self.g_c.eh_completo()))
-        self.assertTrue((self.g_c2.eh_completo()))
-        self.assertTrue((self.g_c3.eh_completo()))
-        self.assertFalse((self.g_l1.eh_completo()))
-        self.assertFalse((self.g_l2.eh_completo()))
-        self.assertFalse((self.g_l3.eh_completo()))
-        self.assertFalse((self.g_l4.eh_completo()))
-        self.assertFalse((self.g_l5.eh_completo()))
-
-    def test_dfs(self):
-        self.assertEqual(self.nlw.dfs("A"), self.nlw_dfs_A)
-        self.assertEqual(self.nlw.dfs("F"), self.nlw_dfs_F)
-        self.assertEqual(self.nlw.dfs("K"), self.nlw_dfs_K)
-        self.assertEqual(self.nlw.dfs("C"), self.nlw_dfs_C)
-        self.assertEqual(self.g_p.dfs("J"), self.g_p_dfs_J)
-        self.assertEqual(self.g_p.dfs("C"), self.g_p_dfs_C)
-        self.assertEqual(self.g_p.dfs("Z"), self.g_p_dfs_Z)
-        self.assertEqual(self.g_p.dfs("T"), self.g_p_dfs_T)
-
-
-    def test_bfs(self):
-        self.assertEqual(self.nlw.bfs("A"), self.nlw_bfs_A)
-        self.assertEqual(self.nlw.bfs("K"), self.nlw_bfs_K)
-        self.assertEqual(self.nlw.bfs("F"), self.nlw_bfs_F)
-        self.assertEqual(self.nlw.bfs("C"), self.nlw_bfs_C)
-        self.assertEqual(self.g_p.bfs("J"), self.g_p_bfs_J)
-        self.assertEqual(self.g_p.bfs("T"), self.g_p_bfs_T)
-        self.assertEqual(self.g_p.bfs("Z"), self.g_p_bfs_Z)
-        self.assertEqual(self.g_p.bfs("P"), self.g_p_bfs_P)  
-
-    def test_ha_ciclo(self):
-        self.assertEqual(self.g_l1.ha_ciclo(), ['A', 'a1', 'A'])
-        self.assertEqual(self.g_l2.ha_ciclo(), ['A', 'a1', 'B', 'a3', 'A'])
-        self.assertEqual(self.g_l3.ha_ciclo(), ['C', 'a2', 'C'])
-        self.assertEqual(self.g_l4.ha_ciclo(), ['D', 'a1', 'D'])
-        self.assertEqual(self.g_l5.ha_ciclo(), ['C', 'a2', 'C'])
-        self.assertEqual(self.g_p.ha_ciclo(), ['C', 'a2', 'E', 'a3', 'C'])
-        self.assertEqual(self.g_c.ha_ciclo(), ['J', 'a2', 'E', 'a4', 'C', 'a1', 'J'])
-        self.assertEqual(self.g_c2.ha_ciclo(), False)
-        self.assertEqual(self.g_c3.ha_ciclo(), False)
-        self.assertEqual(self.g_p_dfs_J.ha_ciclo(), False)
-        self.assertEqual(self.g_p_dfs_C.ha_ciclo(), False)
-        self.assertEqual(self.g_p_dfs_Z.ha_ciclo(), False)
-        self.assertEqual(self.g_p_dfs_T.ha_ciclo(), False)
-   
-    def test_conexo(self):
-        self.assertTrue(self.g_p.conexo())
-        self.assertTrue(self.g_c.conexo())
-        self.assertTrue(self.g_c2.conexo())
-        self.assertTrue(self.g_c3.conexo())
-        self.assertTrue(self.nlw.conexo())
-        self.assertTrue(self.nlw_dfs_A.conexo())
-        self.assertTrue(self.nlw_dfs_K.conexo())
-        self.assertTrue(self.nlw_dfs_F.conexo())
-        self.assertTrue(self.nlw_dfs_C.conexo())
-        self.assertTrue(self.nlw_bfs_A.conexo())
-        self.assertTrue(self.nlw_bfs_K.conexo())
-        self.assertTrue(self.nlw_bfs_F.conexo())
-        self.assertTrue(self.nlw_bfs_C.conexo())
-        self.assertTrue(self.nlw_bfs_C.conexo())
-        self.assertFalse(self.g_v1.conexo())
-        self.assertFalse(self.g_d.conexo())
-
-    def test_euleriano(self):
-        self.assertEqual(self.euleriano.printEulerPathCircuit(), ['A', 'a1', 'B', 'a2', 'D', 'a5', 'E', 'a7', 'F', 'a6', 'D', 'a4', 'C', 'a3', 'A'])
-        self.assertEqual(self.semi_euleriano.printEulerPathCircuit(), ['B', 'a1', 'A', 'a2', 'C', 'a5', 'E', 'a4', 'B', 'a7', 'D', 'a8', 'C', 'a9', 'F', 'a10', 'D', 'a6', 'E', 'a3', 'A'])
-        self.assertFalse(self.v_v.printEulerPathCircuit(),)
-        self.assertFalse(self.g_p_dfs_C.printEulerPathCircuit(),)
-        self.assertFalse(self.nao_euleriano.printEulerPathCircuit())
-        self.assertEqual(self.nlw.printEulerPathCircuit(), ['A', '1', 'B', '11', 'F', '10', 'H', '9', 'G', '2', 'A', '3', 'J', '5', 'K', '4', 'G', '6', 'J', '7', 'I', '8', 'G', '12', 'B', '13', 'C', '14', 'D', '15', 'E', '17', 'B', '16', 'D'])
-        self.assertFalse(self.g_p.printEulerPathCircuit(),)
-        self.assertFalse(self.g_p_sem_paralelas.printEulerPathCircuit(),)
-        self.assertFalse(self.g_c.printEulerPathCircuit(),)
 
     def test_warshall(self):
-        self.assertTrue(self.grafo_5.warshall())
+        self.assertEqual(self.graf_1.warshall(), [[0, 1, 1, 1], [0, 1, 1, 1], [0, 1, 1, 1], [0, 1, 1, 1]])
+        self.assertEqual(self.graf_2.warshall(), [[1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1]])
+        self.assertEqual(self.graf_3.warshall(), [[1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1]])
+        self.assertEqual(self.graf_4.warshall(), [[1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1]])
+        self.assertEqual(self.graf_5.warshall(), [[1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1], [0, 0, 0, 0]])
+        self.assertEqual(self.g_p.warshall(), [[0, 1, 1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 1, 1, 0, 0, 1, 1], [0, 1, 1, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0]])
+        self.assertEqual(self.v_v.warshall(), [[0, 1, 1, 1, 1, 0, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 1, 1, 0, 1, 1], [0, 0, 0, 0, 1, 0, 1, 1], [0, 0, 0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]])
+        self.assertEqual(self.nlw.warshall(), [[0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1], [0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1], [0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0], [0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1], [0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0]])
+        self.assertEqual(self.g_v1.warshall(), [[0, 1, 1, 1, 1, 1, 0, 0], [0, 0, 1, 1, 1, 1, 0, 0], [0, 0, 0, 1, 1, 1, 0, 0], [0, 0, 0, 0, 1, 1, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0]])

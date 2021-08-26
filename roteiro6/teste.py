@@ -1,11 +1,12 @@
 from meu_grafo_matriz_adjacencia_dir import *
 
-grafo = MeuGrafo(['A', 'B', 'C', 'D'])
+g_v1 = MeuGrafo(['V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8'])
+g_v1.adicionaAresta('a1', 'V1', 'V2')
+g_v1.adicionaAresta('a2', 'V2', 'V3')
+g_v1.adicionaAresta('a3', 'V3', 'V4')
+g_v1.adicionaAresta('a4', 'V4', 'V5')
+g_v1.adicionaAresta('a5', 'V5', 'V6')
+g_v1.adicionaAresta('a6', 'V7', 'V8')
 
-grafo.adicionaAresta('a1', 'A', 'B')
-grafo.adicionaAresta('a2', 'A', 'C')
-grafo.adicionaAresta('a3', 'B', 'C')
-grafo.adicionaAresta('a4', 'C', 'D')
-grafo.adicionaAresta('a5', 'C', 'A')
+print(g_v1.warshall())
 
-print(grafo.warshall())
