@@ -31,7 +31,6 @@ class MeuGrafo(GrafoMatrizAdjacenciaDirecionado):
 
     return matriz
 
-
   def vAdjacentes(self, v):
     adjacentes = []
 
@@ -50,11 +49,11 @@ class MeuGrafo(GrafoMatrizAdjacenciaDirecionado):
     :return: lista com o menor caminho do grafo
     :raises: VerticeInvalidoException se o vértice não existe no grafo
     '''
+    grafo = self.N
     cargaDoDrone = {}
     pi = {}
     beta = {}
     verticesNaoVisitados = []
-    grafo = self.N
 
     if (origem not in grafo or destino not in grafo):
       raise VerticeInvalidoException("O vértice não existe no grafo")
@@ -74,13 +73,13 @@ class MeuGrafo(GrafoMatrizAdjacenciaDirecionado):
     verticesNaoVisitados.remove(origem)
     w = origem
     aux = 0
-    arestas = []
+    a = []
     
     while w != destino:
-      arestas = self.vAdjacentes(w)
-      for r in arestas:
-        if r in verticesNaoVisitados:
-          if beta[r] >= (beta[w] + 1):
+      a = self.vAdjacentes(w)
+      for r in a:
+        if (r in verticesNaoVisitados):
+          if (beta[r] >= (beta[w] + 1)):
             beta[r] = (beta[w] + 1)
             pi[r] = w
             if r in listaDeCargas:
@@ -89,30 +88,30 @@ class MeuGrafo(GrafoMatrizAdjacenciaDirecionado):
               cargaDoDrone[r] = cargaDoDrone[w] - 1
 
       for i in verticesNaoVisitados:
-        if cargaDoDrone[i] == 0 and i != origem:
+        if (cargaDoDrone[i] == 0 and i != origem):
           beta[i] = inf
 
       menorDosBetas = inf
 
-      for r in verticesNaoVisitados:
-        if beta[r] < menorDosBetas:
-          menorDosBetas = beta[r]
-          r_menorDosBetas = r
+      for i in verticesNaoVisitados:
+        if (beta[i] < menorDosBetas):
+          menorDosBetas = beta[i]
+          betaMenor = i
 
-      if menorDosBetas == inf:
+      if (menorDosBetas == inf):
         return False
 
-      aux = r_menorDosBetas
+      aux = betaMenor
       verticesNaoVisitados.remove(aux)
       w = aux
 
-    menorCaminho = []
+    menorCaminhoDrone = []
 
-    menorCaminho.append(destino)
+    menorCaminhoDrone.append(destino)
 
     while destino != origem:
-      menorCaminho.append(pi[destino])
+      menorCaminhoDrone.append(pi[destino])
       destino = pi[destino]
 
-    menorCaminho.reverse()
-    return menorCaminho
+    menorCaminhoDrone.reverse()
+    return menorCaminhoDrone

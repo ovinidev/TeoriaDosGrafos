@@ -440,7 +440,6 @@ class TestGrafo(unittest.TestCase):
         self.dijkstraZ.adicionaAresta('a12', 'V6', 'V11')
         self.dijkstraZ.adicionaAresta('a13', 'V6', 'V7')
 
-
     def test_warshall(self):
         self.assertEqual(self.graf_1.warshall(), [[0, 1, 1, 1], [0, 1, 1, 1], [0, 1, 1, 1], [0, 1, 1, 1]])
         self.assertEqual(self.graf_2.warshall(), [[1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1]])
@@ -459,5 +458,7 @@ class TestGrafo(unittest.TestCase):
         self.assertFalse(self.dijkstraDoRoteiro.drone('V7', 'V30', 3, 5, ['V10', 'V15', 'V20', 'V27']),)
         self.assertEqual(self.dijkstraDoRoteiro.drone('V7', 'V30', 6, 6, ['V10', 'V15', 'V20', 'V23', 'V27']), ['V7', 'V11', 'V15', 'V18', 'V21', 'V26', 'V31', 'V30'])
         self.assertEqual(self.dijkstraDoRoteiro.drone('V20', 'V33', 6, 6, ['V23', 'V27']), ['V20', 'V24', 'V29', 'V32', 'V31', 'V33'])
+        self.assertEqual(self.dijkstraDoRoteiro.drone('V3', 'V10', 5, 4, ['V7']), ['V3', 'V6', 'V10'])
         self.assertEqual(self.dijkstraZ.drone('V1', 'V10', 5, 5, ['V5', 'V9', 'V12']), ['V1', 'V3', 'V6', 'V10'])
         self.assertEqual(self.dijkstraZ.drone('V1', 'V9', 3, 3, ['V5']), ['V1', 'V2', 'V5', 'V9'])
+        self.assertFalse(self.dijkstraZ.drone('V3', 'V12', 4, 4, ['V8']),)
