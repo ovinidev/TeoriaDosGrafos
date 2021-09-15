@@ -1,7 +1,7 @@
 from bibgrafo.grafo_lista_adjacencia import GrafoListaAdjacencia
 from bibgrafo.grafo_exceptions import *
 from copy import deepcopy
-from heapq import heappop, heappush
+from math import inf
 
 class MeuGrafo(GrafoListaAdjacencia):
 
@@ -164,7 +164,7 @@ class MeuGrafo(GrafoListaAdjacencia):
 
 			return vertices_adjacentes
 
-	def verticeMenorAresta(self):
+	def arestaMenorPeso(self):
 		listaArestas = list(self.A)
 		menorPeso = listaArestas[0]
 
@@ -172,62 +172,50 @@ class MeuGrafo(GrafoListaAdjacencia):
 			if (self.A[a].getPeso() < self.A[menorPeso].getPeso()):
 				menorPeso = a
 
-		return self.A[menorPeso].getV1()
-
-	def verticeMenorPeso(self, V):
-		listaArestas = list(self.A)
-		arestasSobreVertice = list(self.arestas_sobre_vertice(V))
-		menorPeso = arestasSobreVertice[0]	
-
-		for a in self.A:
-			if a not in arestasSobreVertice:
-				continue
-			if (self.A[a].getPeso() < self.A[menorPeso].getPeso()):
-				menorPeso = a
-
-		if self.A[menorPeso].getV1() == V:
-			return self.A[menorPeso].getV2()
-		elif self.A[menorPeso].getV2() == V:
-			return self.A[menorPeso].getV1()
+		return self.A[menorPeso].getRotulo()
 
 
 	def prim(self):
 
-		copia_grafo = deepcopy(self)
+		arestaInicial = self.arestaMenorPeso()
+		if arestaInicial == None:
+			return False
 
-		verticeInicial = copia_grafo.verticeMenorAresta()
+		arestaInicial = self.A[arestaInicial]
+		v_inicial = arestaInicial.getV1()
+		arvore_mst = MeuGrafo([v_inicial])
+		vertices_mst = set([v_inicial])
 
-		verticeForaDaArvore = []
-		verticeNaArvore = [verticeInicial]
+		while len(vertices_mst) != len(self.N):
+			menorPeso = inf
+			arestaMenorPeso = None
+			v_fora_mst = None 
 
-		acabou = False
+			for a in self.A:
+				arestaAtual = self.A[a]
+				vertice1 = arestaAtual.getV1()
+				vertice2 = arestaAtual.getV2()
 
-		while(acabou == False):
+				if vertice1 in vertices_mst and vertice2 not in vertices_mst:
+					if arestaAtual.getPeso() < menorPeso:
+						menorPeso = arestaAtual.getPeso()
+						arestaMenorPeso = a
+						v_fora_mst = vertice2
 
-			for v in self.N:
-				if v not in verticeForaDaArvore:
-					verticeForaDaArvore.append(v)
-			
-			verificados = []
-			for v in self.N:
-				listaArestas = list(self.A)
-				arestasSobreVertice = list(self.arestas_sobre_vertice(v))
-				menorPeso = arestasSobreVertice[0]	
+				if vertice2 in vertices_mst and vertice1 not in vertices_mst:
+					if arestaAtual.getPeso() < menorPeso:
+						menorPeso = arestaAtual.getPeso()
+						arestaMenorPeso = a
+						v_fora_mst = vertice1
 
-				for a in self.A:
-					if a not in arestasSobreVertice:
-						continue
-					if (self.A[a].getPeso() < self.A[menorPeso].getPeso()):
-						menorPeso = a
+			if arestaMenorPeso == None:
+				break
 
-				if self.A[menorPeso].getV1() == v:
-						if v in verticeNaArvore:
-							vMenorPeso = self.A[menorPeso].getV2()
-							verificados.append(vMenorPeso)
-				elif self.A[menorPeso].getV2() == v:
-						vMenorPeso =  self.A[menorPeso].getV1()
-						verificados.append(vMenorPeso)
+			arestaMenorPeso = self.A[arestaMenorPeso]
+			vertices_mst.add(v_fora_mst)
+			arvore_mst.adicionaVertice(v_fora_mst)
 
-			print(verificados)
 
-			acabou = True
+			arvore_mst.adicionaAresta(arestaMenorPeso.getRotulo(), 
+			arestaMenorPeso.getV2(), arestaMenorPeso.getV1(), arestaMenorPeso.getPeso())
+		return arvore_mst
