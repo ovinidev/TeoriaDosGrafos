@@ -165,113 +165,40 @@ class TestGrafo(unittest.TestCase):
         self.nlw.adicionaAresta('16', 'B', 'D')
         self.nlw.adicionaAresta('17', 'B', 'E')
 
-        #Arvore DFS
+        self.grafo_roteiro = MeuGrafo(['A', 'B', 'C', 'D', 'E', 'F', 'G'])
+        self.grafo_roteiro.adicionaAresta('a1', 'A', 'B', 1)
+        self.grafo_roteiro.adicionaAresta('a2', 'B', 'C', 2)
+        self.grafo_roteiro.adicionaAresta('a3', 'C', 'G', 2)
+        self.grafo_roteiro.adicionaAresta('a4', 'G', 'F', 3)
+        self.grafo_roteiro.adicionaAresta('a5', 'E', 'F', 4)
+        self.grafo_roteiro.adicionaAresta('a6', 'E', 'G', 1)
+        self.grafo_roteiro.adicionaAresta('a7', 'E', 'D', 2)
+        self.grafo_roteiro.adicionaAresta('a8', 'A', 'D', 3)
+        self.grafo_roteiro.adicionaAresta('a9', 'B', 'G', 5)
+        self.grafo_roteiro.adicionaAresta('a10', 'D', 'G', 3)
 
-        self.nlw_dfs_A = MeuGrafo(['K', 'J', 'G', 'H', 'F', 'B', 'C', 'D', 'E', 'A', 'I'])
+        #Arvore Prim
 
-        self.nlw_dfs_A.adicionaAresta('1', 'A', 'B')
-        self.nlw_dfs_A.adicionaAresta('11', 'B', 'F')
-        self.nlw_dfs_A.adicionaAresta('10', 'F', 'H')
-        self.nlw_dfs_A.adicionaAresta('9', 'H', 'G')
-        self.nlw_dfs_A.adicionaAresta('4', 'G', 'K')
-        self.nlw_dfs_A.adicionaAresta('5', 'K', 'J')
-        self.nlw_dfs_A.adicionaAresta('7', 'J', 'I')
-        self.nlw_dfs_A.adicionaAresta('13', 'B', 'C')
-        self.nlw_dfs_A.adicionaAresta('14', 'C', 'D')
-        self.nlw_dfs_A.adicionaAresta('15', 'D', 'E')
+        self.nlw_prim = MeuGrafo(['K', 'J', 'G', 'H', 'F', 'B', 'C', 'D', 'E', 'A', 'I'])
+        self.nlw_prim.adicionaAresta('1', 'A', 'B')
+        self.nlw_prim.adicionaAresta('2', 'A', 'G')
+        self.nlw_prim.adicionaAresta('3', 'A', 'J')
+        self.nlw_prim.adicionaAresta('4', 'K', 'G')
+        self.nlw_prim.adicionaAresta('7', 'J', 'I')
+        self.nlw_prim.adicionaAresta('9', 'G', 'H')
+        self.nlw_prim.adicionaAresta('10', 'H', 'F')
+        self.nlw_prim.adicionaAresta('13', 'B', 'C')
+        self.nlw_prim.adicionaAresta('14', 'C', 'D')
+        self.nlw_prim.adicionaAresta('15', 'D', 'E')
 
-        self.nlw_dfs_F = MeuGrafo(['K', 'J', 'G', 'H', 'F', 'B', 'C', 'D', 'E', 'A', 'I'])
+        self.grafo_roteiro_prim = MeuGrafo(['A', 'B', 'C', 'D', 'E', 'F', 'G'])
+        self.grafo_roteiro_prim.adicionaAresta('a1', 'A', 'B', 1)
+        self.grafo_roteiro_prim.adicionaAresta('a2', 'B', 'C', 2)
+        self.grafo_roteiro_prim.adicionaAresta('a3', 'C', 'G', 2)
+        self.grafo_roteiro_prim.adicionaAresta('a6', 'E', 'G', 1)
+        self.grafo_roteiro_prim.adicionaAresta('a7', 'E', 'D', 2)
+        self.grafo_roteiro_prim.adicionaAresta('a4', 'G', 'F', 3)
 
-        self.nlw_dfs_F.adicionaAresta('10', 'F', 'H')
-        self.nlw_dfs_F.adicionaAresta('9', 'H', 'G')
-        self.nlw_dfs_F.adicionaAresta('2', 'G', 'A')
-        self.nlw_dfs_F.adicionaAresta('1', 'A', 'B')
-        self.nlw_dfs_F.adicionaAresta('13', 'B', 'C')
-        self.nlw_dfs_F.adicionaAresta('14', 'C', 'D')
-        self.nlw_dfs_F.adicionaAresta('15', 'D', 'E')
-        self.nlw_dfs_F.adicionaAresta('3', 'A', 'J')
-        self.nlw_dfs_F.adicionaAresta('5', 'J', 'K')
-        self.nlw_dfs_F.adicionaAresta('7', 'J', 'I')
-
-        self.nlw_dfs_K = MeuGrafo(['K', 'J', 'G', 'H', 'F', 'B', 'C', 'D', 'E', 'A', 'I'])
-
-        self.nlw_dfs_K.adicionaAresta('4', 'K', 'G')
-        self.nlw_dfs_K.adicionaAresta('2', 'G', 'A')
-        self.nlw_dfs_K.adicionaAresta('1', 'A', 'B')
-        self.nlw_dfs_K.adicionaAresta('11', 'B', 'F')
-        self.nlw_dfs_K.adicionaAresta('10', 'F', 'H')
-        self.nlw_dfs_K.adicionaAresta('13', 'B', 'C')
-        self.nlw_dfs_K.adicionaAresta('14', 'C', 'D')
-        self.nlw_dfs_K.adicionaAresta('15', 'D', 'E')
-        self.nlw_dfs_K.adicionaAresta('3', 'A', 'J')
-        self.nlw_dfs_K.adicionaAresta('7', 'J', 'I')
-       
-        self.nlw_dfs_C = MeuGrafo(['K', 'J', 'G', 'H', 'F', 'B', 'C', 'D', 'E', 'A', 'I'])
-
-        self.nlw_dfs_C.adicionaAresta('13', 'C', 'B')
-        self.nlw_dfs_C.adicionaAresta('1', 'B', 'A')
-        self.nlw_dfs_C.adicionaAresta('2', 'A', 'G')
-        self.nlw_dfs_C.adicionaAresta('4', 'G', 'K')
-        self.nlw_dfs_C.adicionaAresta('5', 'K', 'J')
-        self.nlw_dfs_C.adicionaAresta('7', 'J', 'I')
-        self.nlw_dfs_C.adicionaAresta('9', 'G', 'H')
-        self.nlw_dfs_C.adicionaAresta('10', 'H', 'F')
-        self.nlw_dfs_C.adicionaAresta('16', 'B', 'D')
-        self.nlw_dfs_C.adicionaAresta('15', 'D', 'E')
-
-        #Arvore BFS
-
-        self.nlw_bfs_A = MeuGrafo(['K', 'J', 'G', 'H', 'F', 'B', 'C', 'D', 'E', 'A', 'I'])
-
-        self.nlw_bfs_A.adicionaAresta('1', 'A', 'B')
-        self.nlw_bfs_A.adicionaAresta('2', 'A', 'G')
-        self.nlw_bfs_A.adicionaAresta('3', 'A', 'J')
-        self.nlw_bfs_A.adicionaAresta('11', 'F', 'B')
-        self.nlw_bfs_A.adicionaAresta('13', 'B', 'C')
-        self.nlw_bfs_A.adicionaAresta('16', 'B', 'D')
-        self.nlw_bfs_A.adicionaAresta('17', 'B', 'E')
-        self.nlw_bfs_A.adicionaAresta('4', 'K', 'G')
-        self.nlw_bfs_A.adicionaAresta('8', 'I', 'G')
-        self.nlw_bfs_A.adicionaAresta('9', 'G', 'H')
-
-        self.nlw_bfs_F = MeuGrafo(['K', 'J', 'G', 'H', 'F', 'B', 'C', 'D', 'E', 'A', 'I'])
-
-        self.nlw_bfs_F.adicionaAresta('10', 'H', 'F')
-        self.nlw_bfs_F.adicionaAresta('11', 'F', 'B')
-        self.nlw_bfs_F.adicionaAresta('9', 'G', 'H')
-        self.nlw_bfs_F.adicionaAresta('1', 'A', 'B')
-        self.nlw_bfs_F.adicionaAresta('13', 'B', 'C')
-        self.nlw_bfs_F.adicionaAresta('16', 'B', 'D')
-        self.nlw_bfs_F.adicionaAresta('17', 'B', 'E')
-        self.nlw_bfs_F.adicionaAresta('4', 'K', 'G')
-        self.nlw_bfs_F.adicionaAresta('6', 'J', 'G')
-        self.nlw_bfs_F.adicionaAresta('8', 'I', 'G')
-
-        self.nlw_bfs_K = MeuGrafo(['K', 'J', 'G', 'H', 'F', 'B', 'C', 'D', 'E', 'A', 'I'])
-
-        self.nlw_bfs_K.adicionaAresta('4', 'K', 'G')
-        self.nlw_bfs_K.adicionaAresta('5', 'K', 'J')
-        self.nlw_bfs_K.adicionaAresta('2', 'A', 'G')
-        self.nlw_bfs_K.adicionaAresta('8', 'I', 'G')
-        self.nlw_bfs_K.adicionaAresta('9', 'G', 'H')
-        self.nlw_bfs_K.adicionaAresta('12', 'G', 'B')
-        self.nlw_bfs_K.adicionaAresta('10', 'H', 'F')
-        self.nlw_bfs_K.adicionaAresta('13', 'B', 'C')
-        self.nlw_bfs_K.adicionaAresta('16', 'B', 'D')
-        self.nlw_bfs_K.adicionaAresta('17', 'B', 'E')
-
-        self.nlw_bfs_C = MeuGrafo(['K', 'J', 'G', 'H', 'F', 'B', 'C', 'D', 'E', 'A', 'I'])
-
-        self.nlw_bfs_C.adicionaAresta('13', 'B', 'C')
-        self.nlw_bfs_C.adicionaAresta('14', 'C', 'D')
-        self.nlw_bfs_C.adicionaAresta('1', 'A', 'B')
-        self.nlw_bfs_C.adicionaAresta('11', 'F', 'B')
-        self.nlw_bfs_C.adicionaAresta('12', 'G', 'B')
-        self.nlw_bfs_C.adicionaAresta('17', 'B', 'E')
-        self.nlw_bfs_C.adicionaAresta('3', 'A', 'J')
-        self.nlw_bfs_C.adicionaAresta('10', 'H', 'F')
-        self.nlw_bfs_C.adicionaAresta('4', 'K', 'G')
-        self.nlw_bfs_C.adicionaAresta('8', 'I', 'G')
 
         # Eureliano
 
@@ -322,154 +249,6 @@ class TestGrafo(unittest.TestCase):
         self.nao_euleriano.adicionaAresta('a7', 'B', 'D')
         self.nao_euleriano.adicionaAresta('a8', 'C', 'D')
 
-    def test_adiciona_aresta(self):
-        self.assertTrue(self.g_p.adicionaAresta('a10', 'J', 'C'))
-        with self.assertRaises(ArestaInvalidaException):
-            self.assertTrue(self.g_p.adicionaAresta('b1', '', 'C'))
-        with self.assertRaises(ArestaInvalidaException):
-            self.assertTrue(self.g_p.adicionaAresta('b1', 'A', 'C'))
-        with self.assertRaises(ArestaInvalidaException):
-            self.g_p.adicionaAresta('')
-        with self.assertRaises(ArestaInvalidaException):
-            self.g_p.adicionaAresta('aa-bb')
-        with self.assertRaises(ArestaInvalidaException):
-            self.g_p.adicionaAresta('x', 'J', 'V')
-        with self.assertRaises(ArestaInvalidaException):
-            self.g_p.adicionaAresta('a1', 'J', 'C')
-
-    def test_vertices_nao_adjacentes(self):
-        self.assertEqual(self.g_p.vertices_nao_adjacentes(), ['J-E', 'J-P', 'J-M', 'J-T', 'J-Z', 'C-Z', 'E-P', 'E-M', 'E-T', 'E-Z', 'P-M', 'P-T', 'P-Z', 'M-Z'])
-        self.assertEqual(self.g_c.vertices_nao_adjacentes(), [])
-        self.assertEqual(self.g_c3.vertices_nao_adjacentes(), [])
-
-    def test_ha_laco(self):
-        self.assertFalse(self.g_p.ha_laco())
-        self.assertFalse(self.g_p_sem_paralelas.ha_laco())
-        self.assertFalse(self.g_c2.ha_laco())
-        self.assertTrue(self.g_l1.ha_laco())
-        self.assertTrue(self.g_l2.ha_laco())
-        self.assertTrue(self.g_l3.ha_laco())
-        self.assertTrue(self.g_l4.ha_laco())
-        self.assertTrue(self.g_l5.ha_laco())
-
-    def test_grau(self):
-        # Paraíba
-        self.assertEqual(self.g_p.grau('J'), 1)
-        self.assertEqual(self.g_p.grau('C'), 7)
-        self.assertEqual(self.g_p.grau('E'), 2)
-        self.assertEqual(self.g_p.grau('P'), 2)
-        self.assertEqual(self.g_p.grau('M'), 2)
-        self.assertEqual(self.g_p.grau('T'), 3)
-        self.assertEqual(self.g_p.grau('Z'), 1)
-        with self.assertRaises(VerticeInvalidoException):
-            self.assertEqual(self.g_p.grau('G'), 5)
-
-        self.assertEqual(self.g_d.grau('A'), 1)
-        self.assertEqual(self.g_d.grau('C'), 0)
-        self.assertNotEqual(self.g_d.grau('D'), 2)
-
-        # Completos
-        self.assertEqual(self.g_c.grau('J'), 3)
-        self.assertEqual(self.g_c.grau('C'), 3)
-        self.assertEqual(self.g_c.grau('E'), 3)
-        self.assertEqual(self.g_c.grau('P'), 3)
-
-        # Com laço. Lembrando que cada laço conta 2 vezes por vértice para cálculo do grau
-        self.assertEqual(self.g_l1.grau('A'), 5)
-        self.assertEqual(self.g_l2.grau('B'), 4)
-        self.assertEqual(self.g_l4.grau('D'), 2)
-
-    def test_ha_paralelas(self):
-        self.assertTrue(self.g_p.ha_paralelas())
-        self.assertFalse(self.g_p_sem_paralelas.ha_paralelas())
-        self.assertFalse(self.g_c.ha_paralelas())
-        self.assertFalse(self.g_c2.ha_paralelas())
-        self.assertFalse(self.g_c3.ha_paralelas())
-        self.assertTrue(self.g_l1.ha_paralelas())
-
-    def test_arestas_sobre_vertice(self):
-        self.assertEqual(set(self.g_p.arestas_sobre_vertice('J')), set(['a1']))
-        self.assertEqual(set(self.g_p.arestas_sobre_vertice('C')), set(['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7']))
-        self.assertEqual(set(self.g_p.arestas_sobre_vertice('M')), set(['a7', 'a8']))
-        self.assertEqual(set(self.g_l2.arestas_sobre_vertice('B')), set(['a1', 'a2', 'a3']))
-        self.assertEqual(set(self.g_d.arestas_sobre_vertice('C')), set())
-        self.assertEqual(set(self.g_d.arestas_sobre_vertice('A')), set(['asd']))
-        with self.assertRaises(VerticeInvalidoException):
-            self.g_p.arestas_sobre_vertice('A')
-
-    def test_eh_completo(self):
-        self.assertFalse(self.g_p.eh_completo())
-        self.assertFalse((self.g_p_sem_paralelas.eh_completo()))
-        self.assertTrue((self.g_c.eh_completo()))
-        self.assertTrue((self.g_c2.eh_completo()))
-        self.assertTrue((self.g_c3.eh_completo()))
-        self.assertFalse((self.g_l1.eh_completo()))
-        self.assertFalse((self.g_l2.eh_completo()))
-        self.assertFalse((self.g_l3.eh_completo()))
-        self.assertFalse((self.g_l4.eh_completo()))
-        self.assertFalse((self.g_l5.eh_completo()))
-
-    def test_dfs(self):
-        self.assertEqual(self.nlw.dfs("A"), self.nlw_dfs_A)
-        self.assertEqual(self.nlw.dfs("F"), self.nlw_dfs_F)
-        self.assertEqual(self.nlw.dfs("K"), self.nlw_dfs_K)
-        self.assertEqual(self.nlw.dfs("C"), self.nlw_dfs_C)
-        self.assertEqual(self.g_p.dfs("J"), self.g_p_dfs_J)
-        self.assertEqual(self.g_p.dfs("C"), self.g_p_dfs_C)
-        self.assertEqual(self.g_p.dfs("Z"), self.g_p_dfs_Z)
-        self.assertEqual(self.g_p.dfs("T"), self.g_p_dfs_T)
-
-
-    def test_bfs(self):
-        self.assertEqual(self.nlw.bfs("A"), self.nlw_bfs_A)
-        self.assertEqual(self.nlw.bfs("K"), self.nlw_bfs_K)
-        self.assertEqual(self.nlw.bfs("F"), self.nlw_bfs_F)
-        self.assertEqual(self.nlw.bfs("C"), self.nlw_bfs_C)
-        self.assertEqual(self.g_p.bfs("J"), self.g_p_bfs_J)
-        self.assertEqual(self.g_p.bfs("T"), self.g_p_bfs_T)
-        self.assertEqual(self.g_p.bfs("Z"), self.g_p_bfs_Z)
-        self.assertEqual(self.g_p.bfs("P"), self.g_p_bfs_P)  
-
-    def test_ha_ciclo(self):
-        self.assertEqual(self.g_l1.ha_ciclo(), ['A', 'a1', 'A'])
-        self.assertEqual(self.g_l2.ha_ciclo(), ['A', 'a1', 'B', 'a3', 'A'])
-        self.assertEqual(self.g_l3.ha_ciclo(), ['C', 'a2', 'C'])
-        self.assertEqual(self.g_l4.ha_ciclo(), ['D', 'a1', 'D'])
-        self.assertEqual(self.g_l5.ha_ciclo(), ['C', 'a2', 'C'])
-        self.assertEqual(self.g_p.ha_ciclo(), ['C', 'a2', 'E', 'a3', 'C'])
-        self.assertEqual(self.g_c.ha_ciclo(), ['J', 'a2', 'E', 'a4', 'C', 'a1', 'J'])
-        self.assertEqual(self.g_c2.ha_ciclo(), False)
-        self.assertEqual(self.g_c3.ha_ciclo(), False)
-        self.assertEqual(self.g_p_dfs_J.ha_ciclo(), False)
-        self.assertEqual(self.g_p_dfs_C.ha_ciclo(), False)
-        self.assertEqual(self.g_p_dfs_Z.ha_ciclo(), False)
-        self.assertEqual(self.g_p_dfs_T.ha_ciclo(), False)
-   
-    def test_conexo(self):
-        self.assertTrue(self.g_p.conexo())
-        self.assertTrue(self.g_c.conexo())
-        self.assertTrue(self.g_c2.conexo())
-        self.assertTrue(self.g_c3.conexo())
-        self.assertTrue(self.nlw.conexo())
-        self.assertTrue(self.nlw_dfs_A.conexo())
-        self.assertTrue(self.nlw_dfs_K.conexo())
-        self.assertTrue(self.nlw_dfs_F.conexo())
-        self.assertTrue(self.nlw_dfs_C.conexo())
-        self.assertTrue(self.nlw_bfs_A.conexo())
-        self.assertTrue(self.nlw_bfs_K.conexo())
-        self.assertTrue(self.nlw_bfs_F.conexo())
-        self.assertTrue(self.nlw_bfs_C.conexo())
-        self.assertTrue(self.nlw_bfs_C.conexo())
-        self.assertFalse(self.g_v1.conexo())
-        self.assertFalse(self.g_d.conexo())
-
-    def test_euleriano(self):
-        self.assertEqual(self.euleriano.printEulerPathCircuit(), ['A', 'a1', 'B', 'a2', 'D', 'a5', 'E', 'a7', 'F', 'a6', 'D', 'a4', 'C', 'a3', 'A'])
-        self.assertEqual(self.semi_euleriano.printEulerPathCircuit(), ['B', 'a1', 'A', 'a2', 'C', 'a5', 'E', 'a4', 'B', 'a7', 'D', 'a8', 'C', 'a9', 'F', 'a10', 'D', 'a6', 'E', 'a3', 'A'])
-        self.assertFalse(self.v_v.printEulerPathCircuit(),)
-        self.assertFalse(self.g_p_dfs_C.printEulerPathCircuit(),)
-        self.assertFalse(self.nao_euleriano.printEulerPathCircuit())
-        self.assertEqual(self.nlw.printEulerPathCircuit(), ['A', '1', 'B', '11', 'F', '10', 'H', '9', 'G', '2', 'A', '3', 'J', '5', 'K', '4', 'G', '6', 'J', '7', 'I', '8', 'G', '12', 'B', '13', 'C', '14', 'D', '15', 'E', '17', 'B', '16', 'D'])
-        self.assertFalse(self.g_p.printEulerPathCircuit(),)
-        self.assertFalse(self.g_p_sem_paralelas.printEulerPathCircuit(),)
-        self.assertFalse(self.g_c.printEulerPathCircuit(),)
+    def test_prim(self):
+        self.assertEqual(self.nlw.prim(), self.nlw_prim)
+        self.assertEqual(self.grafo_roteiro.prim(), self.grafo_roteiro_prim)

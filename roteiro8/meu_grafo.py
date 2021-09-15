@@ -172,50 +172,47 @@ class MeuGrafo(GrafoListaAdjacencia):
 			if (self.A[a].getPeso() < self.A[menorPeso].getPeso()):
 				menorPeso = a
 
-		return self.A[menorPeso].getRotulo()
+		return self.A[menorPeso].getV1()
 
 
 	def prim(self):
 
-		arestaInicial = self.arestaMenorPeso()
-		if arestaInicial == None:
-			return False
+		verticeInicial = self.arestaMenorPeso()
 
-		arestaInicial = self.A[arestaInicial]
-		v_inicial = arestaInicial.getV1()
-		arvore_mst = MeuGrafo([v_inicial])
-		vertices_mst = set([v_inicial])
+		novoGrafo = MeuGrafo([verticeInicial])
+		listaDeVertices = [verticeInicial]
 
-		while len(vertices_mst) != len(self.N):
-			menorPeso = inf
-			arestaMenorPeso = None
-			v_fora_mst = None 
+		while len(listaDeVertices) != len(self.N):
+			vMenorPeso = inf
+			verticeForaDaArvore = 0 
+			arestaMenorPeso = 0
 
 			for a in self.A:
 				arestaAtual = self.A[a]
 				vertice1 = arestaAtual.getV1()
 				vertice2 = arestaAtual.getV2()
 
-				if vertice1 in vertices_mst and vertice2 not in vertices_mst:
-					if arestaAtual.getPeso() < menorPeso:
-						menorPeso = arestaAtual.getPeso()
+				if vertice1 in listaDeVertices and vertice2 not in listaDeVertices:
+					if arestaAtual.getPeso() < vMenorPeso:
+						vMenorPeso = arestaAtual.getPeso()
 						arestaMenorPeso = a
-						v_fora_mst = vertice2
+						verticeForaDaArvore = vertice2
 
-				if vertice2 in vertices_mst and vertice1 not in vertices_mst:
-					if arestaAtual.getPeso() < menorPeso:
-						menorPeso = arestaAtual.getPeso()
+				elif vertice2 in listaDeVertices and vertice1 not in listaDeVertices:
+					if arestaAtual.getPeso() < vMenorPeso:
+						vMenorPeso = arestaAtual.getPeso()
 						arestaMenorPeso = a
-						v_fora_mst = vertice1
-
-			if arestaMenorPeso == None:
-				break
+						verticeForaDaArvore = vertice1
 
 			arestaMenorPeso = self.A[arestaMenorPeso]
-			vertices_mst.add(v_fora_mst)
-			arvore_mst.adicionaVertice(v_fora_mst)
+			listaDeVertices.append(verticeForaDaArvore)
+			novoGrafo.adicionaVertice(verticeForaDaArvore)
 
+			aresta = arestaMenorPeso.getRotulo()
+			v1 = arestaMenorPeso.getV1()
+			v2 = arestaMenorPeso.getV2()
+			peso = arestaMenorPeso.getPeso()
 
-			arvore_mst.adicionaAresta(arestaMenorPeso.getRotulo(), 
-			arestaMenorPeso.getV2(), arestaMenorPeso.getV1(), arestaMenorPeso.getPeso())
-		return arvore_mst
+			novoGrafo.adicionaAresta(aresta,v1, v2, peso)
+			
+		return novoGrafo
