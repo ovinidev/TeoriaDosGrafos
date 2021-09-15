@@ -1,15 +1,19 @@
 from bibgrafo.grafo_lista_adjacencia import GrafoListaAdjacencia
 from meu_grafo import *
 
-g_p = MeuGrafo(['J', 'C', 'E', 'P', 'M', 'T', 'Z'])
-g_p.adicionaAresta('a1', 'J', 'C', 5)
-g_p.adicionaAresta('a2', 'C', 'E', 3)
-g_p.adicionaAresta('a3', 'C', 'E', 4)
-g_p.adicionaAresta('a4', 'P', 'C', 2)
-g_p.adicionaAresta('a5', 'P', 'C', 1)
-g_p.adicionaAresta('a6', 'T', 'C', 5)
-g_p.adicionaAresta('a7', 'M', 'C', 7)
-g_p.adicionaAresta('a8', 'M', 'T', 8)
-g_p.adicionaAresta('a9', 'T', 'Z', 9)
 
-print(g_p.prim())
+
+semi_euleriano = MeuGrafo(['A', 'B', 'C', 'D', 'E', 'F'])
+        
+semi_euleriano.adicionaAresta('a1', 'A', 'B', 23)
+semi_euleriano.adicionaAresta('a2', 'A', 'C', 20)
+semi_euleriano.adicionaAresta('a3', 'A', 'E', 18)
+semi_euleriano.adicionaAresta('a4', 'B', 'E', 23)
+semi_euleriano.adicionaAresta('a5', 'C', 'E', 24)
+semi_euleriano.adicionaAresta('a6', 'D', 'E', 23)
+semi_euleriano.adicionaAresta('a7', 'B', 'D', 22)
+semi_euleriano.adicionaAresta('a8', 'C', 'D', 20)
+semi_euleriano.adicionaAresta('a9', 'C', 'F', 15)
+semi_euleriano.adicionaAresta('a10', 'D', 'F', 10)
+
+print(semi_euleriano.prim())

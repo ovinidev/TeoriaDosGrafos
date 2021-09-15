@@ -204,6 +204,9 @@ class MeuGrafo(GrafoListaAdjacencia):
 						arestaMenorPeso = a
 						verticeForaDaArvore = vertice1
 
+			if arestaMenorPeso == 0:
+				return False
+
 			arestaMenorPeso = self.A[arestaMenorPeso]
 			listaDeVertices.append(verticeForaDaArvore)
 			novoGrafo.adicionaVertice(verticeForaDaArvore)
