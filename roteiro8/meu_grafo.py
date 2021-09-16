@@ -1,6 +1,6 @@
 from bibgrafo.grafo_lista_adjacencia import GrafoListaAdjacencia
 from bibgrafo.grafo_exceptions import *
-from copy import deepcopy
+
 from math import inf
 
 class MeuGrafo(GrafoListaAdjacencia):
@@ -165,6 +165,10 @@ class MeuGrafo(GrafoListaAdjacencia):
 			return vertices_adjacentes
 
 	def arestaMenorPeso(self):
+		'''
+		Faz a verificação de qual vertice possui uma aresta com menor peso
+		:return: o vertice conectado a aresta de menor peso
+		'''
 		listaArestas = list(self.A)
 		menorPeso = listaArestas[0]
 
@@ -176,13 +180,16 @@ class MeuGrafo(GrafoListaAdjacencia):
 
 
 	def prim(self):
-
+		'''
+		Provê um novo grafo após o algoritmo de prim
+		:return: novo grafo com algotimo de prim aplicado
+		'''
 		verticeInicial = self.arestaMenorPeso()
 
 		novoGrafo = MeuGrafo([verticeInicial])
-		listaDeVertices = [verticeInicial]
+		listaDeVertices = list(verticeInicial)
 
-		while len(listaDeVertices) != len(self.N):
+		while len(self.N) != len(listaDeVertices):
 			vMenorPeso = inf
 			verticeForaDaArvore = 0 
 			arestaMenorPeso = 0
