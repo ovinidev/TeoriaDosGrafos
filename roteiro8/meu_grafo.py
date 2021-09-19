@@ -74,6 +74,14 @@ class MeuGrafo(GrafoListaAdjacencia):
 							"O vértice", V, "não existe no grafo")
 			else:
 					return cont_grau
+	
+	def caminho(grafo,v1,v2):
+		g = grafo.bfs(v1)
+
+		for i in g.A:
+				if g.A[i].v1 == v2 or g.A[i].v2 == v2:
+						return True
+		return False
 
 	def ha_paralelas(self):
 			'''
@@ -145,6 +153,85 @@ class MeuGrafo(GrafoListaAdjacencia):
 					if grau != quantidade_de_vertices-1:
 							return False
 			return True
+
+	def bfs(self, V=''):
+		'''
+		Provê um novo grafo após realizar o bfs
+		:param V: O vértice raíz
+		:return: Uma lista com o novo grafo pós bfs
+		:raises: VerticeInvalidoException se o vértice não existe no grafo
+		'''
+		bfs = MeuGrafo(self.N[::])
+
+		verticesVisitados = [V]
+		fila = [V]
+
+		temVertice = False
+
+		for v in self.N:
+				if v == V:
+						temVertice = True
+
+		while(len(fila) != 0):
+			for a in self.A:
+					v1 = self.A[a].getV1()
+					v2 = self.A[a].getV2()
+					verticeAnalisado = fila[0]
+
+					if v1 == verticeAnalisado or v2 == verticeAnalisado:
+							verticeAdjacente = v2 if verticeAnalisado == v1 else v1
+							
+							if verticeAdjacente not in verticesVisitados:
+									fila.append((verticeAdjacente))
+									verticesVisitados.append(verticeAdjacente)                        
+									bfs.adicionaAresta(a, verticeAnalisado, verticeAdjacente)
+						
+			fila.pop(0)
+
+		if(temVertice == False):
+				raise VerticeInvalidoException("O vértice", V, "não existe no grafo")
+		else: 
+				return bfs
+
+	def bfs_aux(self, V=''):
+		bfs = MeuGrafo([V])
+
+		verticesVisitados = [V]
+		fila = [V]
+		listaBfs = [V]
+
+		while(len(fila) != 0):
+				for a in self.A:
+						v1 = self.A[a].getV1()
+						v2 = self.A[a].getV2()
+						verticeAnalisado = fila[0]
+
+						if v1 == verticeAnalisado or v2 == verticeAnalisado:
+							verticeAdjacente = v2 if verticeAnalisado == v1 else v1
+							
+							if verticeAdjacente not in verticesVisitados:
+								bfs.adicionaVertice(verticeAdjacente)
+								fila.append((verticeAdjacente))
+								verticesVisitados.append(verticeAdjacente)                        
+								bfs.adicionaAresta(a, verticeAnalisado, verticeAdjacente)
+								listaBfs.append(verticeAdjacente)
+						
+				fila.pop(0)
+		return listaBfs
+
+	def conexo(self):
+		'''
+		Verifica se o grafo é conexo
+		:return: Um valor booleano que indica se o grafo é ou não conexo
+		'''
+		grafo_bfs = self.bfs_aux(self.N[0])
+		tamanhoGrafoBfs = len(grafo_bfs)
+		tamanhoGrafoAnalisado = len(self.N)
+
+		if (tamanhoGrafoBfs != tamanhoGrafoAnalisado):
+				return False
+		else:
+				return True
 
 	def verticesAdjacentes(self):
 			'''
@@ -226,3 +313,27 @@ class MeuGrafo(GrafoListaAdjacencia):
 			novoGrafo.adicionaAresta(aresta,v1, v2, peso)
 			
 		return novoGrafo
+
+	def kruskal(self):
+		'''
+		Provê um novo grafo após o algoritmo de kruskal
+		:return: novo grafo com algotimo de kruskal aplicado
+		'''
+		arvore = MeuGrafo(self.N)
+		arestas = {}
+
+		for a in self.A:
+			arestas[self.A[a].rotulo] = self.A[a].peso
+
+		arestas = sorted(arestas, key = arestas.get)
+
+		cont = 0
+
+		while True:
+			if not arvore.caminho(self.A[arestas[cont]].v1 , self.A[arestas[cont]].v2):
+				arvore.adicionaAresta(self.A[arestas[cont]].rotulo, self.A[arestas[cont]].v1, self.A[arestas[cont]].v2, self.A[arestas[cont]].peso)
+			cont += 1
+			if arvore.conexo():
+					break
+
+		return arvore

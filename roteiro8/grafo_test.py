@@ -122,6 +122,55 @@ class TestGrafo(unittest.TestCase):
         self.graph1.adicionaAresta('a9', 'B', 'E', 7)
         self.graph1.adicionaAresta('a10', 'B', 'D', 9)
 
+        # Eureliano
+
+        self.euleriano = MeuGrafo(['A', 'B', 'C', 'D', 'E', 'F'])
+        
+        self.euleriano.adicionaAresta('a1', 'A', 'B', 7)
+        self.euleriano.adicionaAresta('a2', 'B', 'D', 5)
+        self.euleriano.adicionaAresta('a3', 'A', 'C', 2)
+        self.euleriano.adicionaAresta('a4', 'C', 'D', 8)
+        self.euleriano.adicionaAresta('a5', 'D', 'E', 5)
+        self.euleriano.adicionaAresta('a6', 'D', 'F', 6)
+        self.euleriano.adicionaAresta('a7', 'E', 'F', 2)
+
+        self.semi_euleriano = MeuGrafo(['A', 'B', 'C', 'D', 'E', 'F'])
+        
+        self.semi_euleriano.adicionaAresta('a1', 'A', 'B', 23)
+        self.semi_euleriano.adicionaAresta('a2', 'A', 'C', 20)
+        self.semi_euleriano.adicionaAresta('a3', 'A', 'E', 18)
+        self.semi_euleriano.adicionaAresta('a4', 'B', 'E', 23)
+        self.semi_euleriano.adicionaAresta('a5', 'C', 'E', 24)
+        self.semi_euleriano.adicionaAresta('a6', 'D', 'E', 23)
+        self.semi_euleriano.adicionaAresta('a7', 'B', 'D', 22)
+        self.semi_euleriano.adicionaAresta('a8', 'C', 'D', 20)
+        self.semi_euleriano.adicionaAresta('a9', 'C', 'F', 15)
+        self.semi_euleriano.adicionaAresta('a10', 'D', 'F', 10)
+
+        self.v_v = MeuGrafo(['V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8'])
+
+        self.v_v.adicionaAresta('a1', 'V1', 'V2', 2)
+        self.v_v.adicionaAresta('a2', 'V1', 'V3', 7)
+        self.v_v.adicionaAresta('a3', 'V3', 'V2', 3)
+        self.v_v.adicionaAresta('a4', 'V3', 'V4', 5)
+        self.v_v.adicionaAresta('a5', 'V4', 'V5', 4)
+        self.v_v.adicionaAresta('a6', 'V5', 'V8', 1)
+        self.v_v.adicionaAresta('a7', 'V5', 'V7', 6)
+        self.v_v.adicionaAresta('a8', 'V6', 'V7', 3)
+
+        # Não Eureliano
+
+        self.nao_euleriano = MeuGrafo(['A', 'B', 'C', 'D', 'E'])
+
+        self.nao_euleriano.adicionaAresta('a1', 'A', 'B', 7)
+        self.nao_euleriano.adicionaAresta('a2', 'A', 'C', 1)
+        self.nao_euleriano.adicionaAresta('a3', 'A', 'E', 2)
+        self.nao_euleriano.adicionaAresta('a4', 'B', 'E', 3)
+        self.nao_euleriano.adicionaAresta('a5', 'C', 'E', 5)
+        self.nao_euleriano.adicionaAresta('a6', 'D', 'E', 6)
+        self.nao_euleriano.adicionaAresta('a7', 'B', 'D', 8)
+        self.nao_euleriano.adicionaAresta('a8', 'C', 'D', 6)
+
         #Arvore Prim
 
         self.nlw_prim = MeuGrafo(['K', 'J', 'G', 'H', 'F', 'B', 'C', 'D', 'E', 'A', 'I'])
@@ -190,54 +239,86 @@ class TestGrafo(unittest.TestCase):
         self.semi_euleriano_prim.adicionaAresta('a9', 'C', 'F', 15)
         self.semi_euleriano_prim.adicionaAresta('a10', 'D', 'F', 10)
 
-        # Eureliano
+        #Arvore Kruskal
 
-        self.euleriano = MeuGrafo(['A', 'B', 'C', 'D', 'E', 'F'])
-        
-        self.euleriano.adicionaAresta('a1', 'A', 'B', 7)
-        self.euleriano.adicionaAresta('a2', 'B', 'D', 5)
-        self.euleriano.adicionaAresta('a3', 'A', 'C', 2)
-        self.euleriano.adicionaAresta('a4', 'C', 'D', 8)
-        self.euleriano.adicionaAresta('a5', 'D', 'E', 5)
-        self.euleriano.adicionaAresta('a6', 'D', 'F', 6)
-        self.euleriano.adicionaAresta('a7', 'E', 'F', 2)
+        self.g_p_kruskal = MeuGrafo(['J', 'C', 'E', 'P', 'M', 'T', 'Z'])
+        self.g_p_kruskal.adicionaAresta('a1', 'J', 'C', 5)
+        self.g_p_kruskal.adicionaAresta('a2', 'C', 'E', 3)
+        self.g_p_kruskal.adicionaAresta('a5', 'P', 'C', 1)
+        self.g_p_kruskal.adicionaAresta('a6', 'T', 'C', 5)
+        self.g_p_kruskal.adicionaAresta('a7', 'M', 'C', 7)
+        self.g_p_kruskal.adicionaAresta('a9', 'T', 'Z', 9)
 
-        self.semi_euleriano = MeuGrafo(['A', 'B', 'C', 'D', 'E', 'F'])
-        
-        self.semi_euleriano.adicionaAresta('a1', 'A', 'B', 23)
-        self.semi_euleriano.adicionaAresta('a2', 'A', 'C', 20)
-        self.semi_euleriano.adicionaAresta('a3', 'A', 'E', 18)
-        self.semi_euleriano.adicionaAresta('a4', 'B', 'E', 23)
-        self.semi_euleriano.adicionaAresta('a5', 'C', 'E', 24)
-        self.semi_euleriano.adicionaAresta('a6', 'D', 'E', 23)
-        self.semi_euleriano.adicionaAresta('a7', 'B', 'D', 22)
-        self.semi_euleriano.adicionaAresta('a8', 'C', 'D', 20)
-        self.semi_euleriano.adicionaAresta('a9', 'C', 'F', 15)
-        self.semi_euleriano.adicionaAresta('a10', 'D', 'F', 10)
+        self.g_c_kruskal = MeuGrafo(['J', 'C', 'E', 'P'])
+        self.g_c_kruskal.adicionaAresta('a1','J','C', 2)
+        self.g_c_kruskal.adicionaAresta('a4', 'E', 'C', 2)
+        self.g_c_kruskal.adicionaAresta('a6', 'P', 'E', 3)
 
-        self.v_v = MeuGrafo(['V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8'])
+        self.g_p_sem_paralelas = MeuGrafo(['J', 'C', 'E', 'P', 'M', 'T', 'Z'])
+        self.g_p_sem_paralelas.adicionaAresta('a1', 'J', 'C', 2)
+        self.g_p_sem_paralelas.adicionaAresta('a3', 'P', 'C', 3)
+        self.g_p_sem_paralelas.adicionaAresta('a4', 'T', 'C', 4)
+        self.g_p_sem_paralelas.adicionaAresta('a5', 'M', 'C', 6)
+        self.g_p_sem_paralelas.adicionaAresta('a7', 'T', 'Z', 10)
 
-        self.v_v.adicionaAresta('a1', 'V1', 'V2', 2)
-        self.v_v.adicionaAresta('a2', 'V1', 'V3', 7)
-        self.v_v.adicionaAresta('a3', 'V3', 'V2', 3)
-        self.v_v.adicionaAresta('a4', 'V3', 'V4', 5)
-        self.v_v.adicionaAresta('a5', 'V4', 'V5', 4)
-        self.v_v.adicionaAresta('a6', 'V5', 'V8', 1)
-        self.v_v.adicionaAresta('a7', 'V5', 'V7', 6)
-        self.v_v.adicionaAresta('a8', 'V6', 'V7', 3)
+        self.nlw_kruskal = MeuGrafo(['K', 'J', 'G', 'H', 'F', 'B', 'C', 'D', 'E', 'A', 'I'])
 
-        # Não Eureliano
+        self.nlw_kruskal.adicionaAresta('1', 'A', 'B', 2)
+        self.nlw_kruskal.adicionaAresta('4', 'K', 'G', 3)
+        self.nlw_kruskal.adicionaAresta('6', 'J', 'G', 2)
+        self.nlw_kruskal.adicionaAresta('7', 'J', 'I', 1)
+        self.nlw_kruskal.adicionaAresta('9', 'G', 'H', 6)
+        self.nlw_kruskal.adicionaAresta('11', 'F', 'B', 4)
+        self.nlw_kruskal.adicionaAresta('12', 'G', 'B', 3)
+        self.nlw_kruskal.adicionaAresta('13', 'B', 'C', 2)
+        self.nlw_kruskal.adicionaAresta('15', 'D', 'E', 2)
+        self.nlw_kruskal.adicionaAresta('16', 'B', 'D', 3)
 
-        self.nao_euleriano = MeuGrafo(['A', 'B', 'C', 'D', 'E'])
+        self.grafo_roteiro_kruskal = MeuGrafo(['A', 'B', 'C', 'D', 'E', 'F', 'G'])
+        self.grafo_roteiro_kruskal.adicionaAresta('a1', 'A', 'B', 1)
+        self.grafo_roteiro_kruskal.adicionaAresta('a2', 'B', 'C', 2)
+        self.grafo_roteiro_kruskal.adicionaAresta('a3', 'C', 'G', 2)
+        self.grafo_roteiro_kruskal.adicionaAresta('a4', 'G', 'F', 3)
+        self.grafo_roteiro_kruskal.adicionaAresta('a6', 'E', 'G', 1)
+        self.grafo_roteiro_kruskal.adicionaAresta('a7', 'E', 'D', 2)
 
-        self.nao_euleriano.adicionaAresta('a1', 'A', 'B', 7)
-        self.nao_euleriano.adicionaAresta('a2', 'A', 'C', 1)
-        self.nao_euleriano.adicionaAresta('a3', 'A', 'E', 2)
-        self.nao_euleriano.adicionaAresta('a4', 'B', 'E', 3)
-        self.nao_euleriano.adicionaAresta('a5', 'C', 'E', 5)
-        self.nao_euleriano.adicionaAresta('a6', 'D', 'E', 6)
-        self.nao_euleriano.adicionaAresta('a7', 'B', 'D', 8)
-        self.nao_euleriano.adicionaAresta('a8', 'C', 'D', 6)
+        self.graph1_kruskal = MeuGrafo(['A', 'B', 'C', 'D', 'E', 'F', 'G'])
+        self.graph1_kruskal.adicionaAresta('a1', 'A', 'B', 7)
+        self.graph1_kruskal.adicionaAresta('a3', 'C', 'E', 5)
+        self.graph1_kruskal.adicionaAresta('a4', 'E', 'G', 9)
+        self.graph1_kruskal.adicionaAresta('a6', 'F', 'D', 6)
+        self.graph1_kruskal.adicionaAresta('a7', 'D', 'A', 5)
+        self.graph1_kruskal.adicionaAresta('a9', 'B', 'E', 7)
+
+        self.euleriano_kruskal = MeuGrafo(['A', 'B', 'C', 'D', 'E', 'F'])
+        self.euleriano_kruskal.adicionaAresta('a1', 'A', 'B', 7)
+        self.euleriano_kruskal.adicionaAresta('a3', 'A', 'C', 2)
+        self.euleriano_kruskal.adicionaAresta('a5', 'D', 'E', 5)
+        self.euleriano_kruskal.adicionaAresta('a2', 'D', 'B', 5)
+        self.euleriano_kruskal.adicionaAresta('a7', 'E', 'F', 2)
+
+        self.semi_euleriano_kruskal = MeuGrafo(['A', 'B', 'C', 'D', 'E', 'F'])
+        self.semi_euleriano_kruskal.adicionaAresta('a2', 'A', 'C', 20)
+        self.semi_euleriano_kruskal.adicionaAresta('a3', 'A', 'E', 18)
+        self.semi_euleriano_kruskal.adicionaAresta('a7', 'B', 'D', 22)
+        self.semi_euleriano_kruskal.adicionaAresta('a9', 'C', 'F', 15)
+        self.semi_euleriano_kruskal.adicionaAresta('a10', 'D', 'F', 10)
+
+        self.v_v_kruskal = MeuGrafo(['V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8'])
+        self.v_v_kruskal.adicionaAresta('a1', 'V1', 'V2', 2)
+        self.v_v_kruskal.adicionaAresta('a3', 'V3', 'V2', 3)
+        self.v_v_kruskal.adicionaAresta('a4', 'V3', 'V4', 5)
+        self.v_v_kruskal.adicionaAresta('a5', 'V4', 'V5', 4)
+        self.v_v_kruskal.adicionaAresta('a6', 'V5', 'V8', 1)
+        self.v_v_kruskal.adicionaAresta('a7', 'V5', 'V7', 6)
+        self.v_v_kruskal.adicionaAresta('a8', 'V6', 'V7', 3)
+
+
+        self.nao_euleriano_kruskal = MeuGrafo(['A', 'B', 'C', 'D', 'E'])
+        self.nao_euleriano_kruskal.adicionaAresta('a2', 'A', 'C', 1)
+        self.nao_euleriano_kruskal.adicionaAresta('a3', 'A', 'E', 2)
+        self.nao_euleriano_kruskal.adicionaAresta('a4', 'B', 'E', 3)
+        self.nao_euleriano_kruskal.adicionaAresta('a6', 'D', 'E', 6)
 
     def test_prim(self):
         self.assertEqual(self.nlw.prim(), self.nlw_prim)
@@ -250,3 +331,16 @@ class TestGrafo(unittest.TestCase):
         self.assertFalse(self.g_l3.prim())
         self.assertEqual(self.euleriano.prim(), self.euleriano_prim)
         self.assertEqual(self.semi_euleriano.prim(), self.semi_euleriano_prim)
+        
+    def test_kruskal(self):
+        self.assertEqual(self.g_p.kruskal(), self.g_p_kruskal)
+        self.assertEqual(self.g_c.kruskal(), self.g_c_kruskal)
+        self.assertEqual(self.nlw.kruskal(), self.nlw_kruskal)
+        self.assertEqual(self.grafo_roteiro.kruskal(), self.grafo_roteiro_kruskal)
+        self.assertEqual(self.graph1.kruskal(), self.graph1_kruskal)
+        self.assertEqual(self.euleriano.kruskal(), self.euleriano_kruskal)
+        self.assertEqual(self.euleriano.kruskal(), self.euleriano_kruskal)
+        self.assertEqual(self.semi_euleriano.kruskal(), self.semi_euleriano_kruskal)
+        self.assertEqual(self.v_v.kruskal(), self.v_v_kruskal)
+        self.assertEqual(self.nao_euleriano.kruskal(), self.nao_euleriano_kruskal)
+
