@@ -291,11 +291,72 @@ class TestGrafo(unittest.TestCase):
         self.cursoFisica.adicionaAresta('d49', '51', '86')
         self.cursoFisica.adicionaAresta('d50', '76', '86')
 
+        self.cursoLetras = MeuGrafo(
+        [
+            '11', '12', '13', '14', '15', '16', '17',
+            '21', '22', '23', '24', '25', '26', '27',
+            '31', '32', '33', '34', '35', '36', '37',
+            '41', '42', '43', '44', '45', '46', '47',
+            '51', '52', '53', '54', '55', '56', '57',
+            '61', '62', '63', '64', '65', '66', '67', '68',
+            '71', '72', '73', '74', '75', '76', '77', '78',
+            '81', '82', '83', '84', '85', '86', '87', '88'
+        ]
+        )
+
+        self.cursoLetras.adicionaAresta('d1', '11', '21')
+        self.cursoLetras.adicionaAresta('d3', '11', '22')
+        self.cursoLetras.adicionaAresta('d5', '12', '23')
+        self.cursoLetras.adicionaAresta('d8', '12', '25')
+        self.cursoLetras.adicionaAresta('d8', '17', '26')
+        self.cursoLetras.adicionaAresta('d9', '21', '31')
+        self.cursoLetras.adicionaAresta('d10', '21', '32')
+        self.cursoLetras.adicionaAresta('d10', '21', '33')
+        self.cursoLetras.adicionaAresta('d11', '24', '34')
+        self.cursoLetras.adicionaAresta('d12', '25', '35')
+        self.cursoLetras.adicionaAresta('d13', '31', '41')
+        self.cursoLetras.adicionaAresta('d14', '33', '42')
+        self.cursoLetras.adicionaAresta('d15', '25', '43')
+        self.cursoLetras.adicionaAresta('d16', '25', '44')
+        self.cursoLetras.adicionaAresta('d17', '36', '44')
+        self.cursoLetras.adicionaAresta('d171', '23', '46')
+        self.cursoLetras.adicionaAresta('d172', '35', '46')
+        self.cursoLetras.adicionaAresta('d173', '37', '47')
+        self.cursoLetras.adicionaAresta('d18', '31', '51')
+        self.cursoLetras.adicionaAresta('d19', '35', '52')
+        self.cursoLetras.adicionaAresta('d20', '13', '53')
+        self.cursoLetras.adicionaAresta('d21', '45', '54')
+        self.cursoLetras.adicionaAresta('d22', '35', '55')
+        self.cursoLetras.adicionaAresta('d23', '22', '56')
+        self.cursoLetras.adicionaAresta('d26', '43', '57')
+        self.cursoLetras.adicionaAresta('d27', '31', '61')
+        self.cursoLetras.adicionaAresta('d28', '31', '62')
+        self.cursoLetras.adicionaAresta('d30', '35', '63')
+        self.cursoLetras.adicionaAresta('d32', '54', '64')
+        self.cursoLetras.adicionaAresta('d34', '37', '67')
+        self.cursoLetras.adicionaAresta('d35', '54', '68')
+        self.cursoLetras.adicionaAresta('d36', '31', '71')
+        self.cursoLetras.adicionaAresta('d37', '31', '72')
+        self.cursoLetras.adicionaAresta('d39', '31', '73')
+        self.cursoLetras.adicionaAresta('d40', '64', '74')
+        self.cursoLetras.adicionaAresta('d41', '35', '75')
+        self.cursoLetras.adicionaAresta('d51', '45', '76')
+        self.cursoLetras.adicionaAresta('d52', '27', '77')
+        self.cursoLetras.adicionaAresta('d53', '53', '77')
+        self.cursoLetras.adicionaAresta('d54', '64', '78')
+        self.cursoLetras.adicionaAresta('d55', '68', '78')
+        self.cursoLetras.adicionaAresta('d44', '17', '83')
+        self.cursoLetras.adicionaAresta('d45', '74', '84')
+        self.cursoLetras.adicionaAresta('d48', '77', '87')
+        self.cursoLetras.adicionaAresta('d49', '74', '88')
+        self.cursoLetras.adicionaAresta('d50', '78', '88')
+
         self.gabaritoMatematica = ['11', '12', '13', '14', '15', '16', '17', '23', '24', '25', '27', '35', '36', '46', '56', '66', '85', '21', '22', '26', '33', '34', '43', '45', '52', '65', '31', '32', '41', '44', '51', '62', '72', '75', '42', '53', '54', '55', '57', '61', '63', '81', '82', '83', '64', '67', '71', '73', '74', '77', '84', '87']
         self.gabaritoConstrucao = ['11', '12', '13', '14', '15', '16', '17', '18', '22', '31', '58', '61', '63', '68', '71', '72', '73', '21', '23', '24', '25', '26', '27', '34', '66', '67', '32', '33', '35', '36', '37', '38', '41', '42', '43', '44', '45', '46', '47', '53', '55', '57', '62', '64', '51', '52', '54', '56', '65']
         self.gabaritoEngenharia = ['11', '12', '13', '14', '15', '16', '17', '22', '23', '27', '32', '42', '71', '74', '91', '101', '102', '21', '24', '25', '26', '34', '35', '83', '31', '33', '36', '41', '43', '53', '54', '63', '72', '92', '44', '45', '51', '52', '62', '64', '73', '81', '103', '55', '61', '75', '82', '93', '65', '84', '85', '94']
         self.gabaritoFisica = ['11', '12', '13', '14', '15', '16', '17', '26', '27', '34', '35', '36', '37', '43', '44', '56', '65', '21', '22', '23', '24', '25', '55', '66', '81', '31', '32', '33', '57', '73', '85', '41', '42', '45', '46', '54', '68', '74', '83', '51', '52', '53', '72', '76', '82', '61', '62', '63', '64', '86', '71', '84']
         self.gabaritoTelematica = ['11', '12', '13', '14', '15', '16', '17', '25', '27', '37', '47', '56', '63', '64', '65', '21', '22', '23', '24', '26', '34', '35', '31', '32', '33', '36', '46', '41', '42', '43', '44', '45', '51', '52', '53', '54', '55', '61', '62']
+        self.gabaritoLetras = [ '11', '12', '13', '14', '15', '16', '17', '24', '27', '36', '37', '45', '65', '66', '81', '82', '85', '86', '21', '22', '23', '25', '26', '34', '47', '53', '54', '67', '76', '83', '31', '32', '33', '35', '43', '44', '56', '64', '68', '77', '41', '42', '46', '51', '52', '55', '57', '61', '62', '63', '71', '72', '73', '74', '75', '78', '87', '84', '88']
 
     def test_kahn(self):
         self.assertListEqual(self.cursoMatematica.kahn(), self.gabaritoMatematica)
@@ -303,4 +364,5 @@ class TestGrafo(unittest.TestCase):
         self.assertListEqual(self.cursoEngComputacao.kahn(), self.gabaritoEngenharia)
         self.assertListEqual(self.cursoFisica.kahn(), self.gabaritoFisica)
         self.assertListEqual(self.cursoTelematica.kahn(), self.gabaritoTelematica)
+        self.assertListEqual(self.cursoLetras.kahn(), self.gabaritoLetras)
 
